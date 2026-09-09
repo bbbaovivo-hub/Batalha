@@ -1531,10 +1531,13 @@ import {
   ref,
   push,
   set,
+  get,
   onValue,
-  remove
+  remove,
+  update,
+  runTransaction,
+  onChildAdded
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
-  
 
   const firebaseConfig = {
    apiKey: "AIzaSyA02iDEhuslJ_FgM4hDKzf837sUHLDogk4",
@@ -1554,57 +1557,13 @@ const db = getDatabase(app);
 // RHYMEX — WEBRTC DA BATALHA
 // ==========================================
 
-let voicePeerConnection = null;
-let voiceLocalStream = null;
-let currentBattleId = null;
-let currentOpponent = null;
 
-const rtcConfig = {
-  iceServers: [
-    { urls: "stun:stun.l.google.com:19302" },
-    { urls: "stun:stun1.l.google.com:19302" }
-  ]
-};
 
-async function startVoiceMicrophone() {
 
-  try {
+    
+    
+    
 
-    voiceLocalStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: false
-    });
-
-    console.log("RHYMEX: microfone ativado.");
-
-    const micStatus =
-      document.getElementById("voice-mic-status");
-
-    if (micStatus) {
-      micStatus.innerText = "Microfone ativado";
-      micStatus.style.color = "var(--success)";
-    }
-
-    return true;
-
-  } catch (error) {
-
-    console.error("RHYMEX: erro ao acessar microfone:", error);
-
-    const micStatus =
-      document.getElementById("voice-mic-status");
-
-    if (micStatus) {
-      micStatus.innerText = "Microfone não autorizado";
-      micStatus.style.color = "var(--danger)";
-    }
-
-    alert("Não foi possível acessar o microfone.");
-
-    return false;
-  }
-
-}
 
 window.rhymexUser = null;
 window.rhymexAuthReady = false;
@@ -1681,148 +1640,520 @@ if (profileLogin && profileContent) {
     }
   });
 
+
+
 // ==========================================
-// RHYMEX — MATCHMAKING REAL
+// RHYMEX — MATCHMAKING + BATALHA REAL
 // ==========================================
 
 let matchmakingRef = null;
 let matchmakingListener = null;
+let ownQueueListener = null;
 
-window.startRealMatchmaking = async function() {
+let voicePeerConnection = null;
+let voiceLocalStream = null;
 
-  const user = window.rhymexUser;
+let currentBattleId = null;
+let currentOpponent = null;
 
-  if (!user) {
-    alert("Você precisa estar logado para entrar em uma batalha.");
-    return;
-  }
+let voiceCandidateListeners = [];
 
-  const queueRef = ref(db, "matchmaking");
-
-  // Adiciona este jogador à fila
-  matchmakingRef = push(queueRef);
-
-  await set(matchmakingRef, {
-    uid: user.uid,
-    name: user.displayName || "MC",
-    joinedAt: Date.now()
-  });
-
-  console.log("RHYMEX: entrou na fila de matchmaking.");
-
-  // Observa a fila
-  matchmakingListener = onValue(queueRef, async (snapshot) => {
-
-    const players = [];
-
-    snapshot.forEach(child => {
-
-      const data = child.val();
-
-      if (
-        data &&
-        data.uid &&
-        data.uid !== user.uid
-      ) {
-        players.push({
-          key: child.key,
-          ...data
-        });
-      }
-
-    });
-
-    // Ainda não encontrou ninguém
-    if (players.length === 0) {
-      return;
-    }
-
-    // Primeiro adversário encontrado
-    const opponent = players[0];
-
-    console.log("RHYMEX: adversário encontrado:", opponent.name);
-
-    // Cria um ID único para a batalha
-    const battleRef = push(ref(db, "battles"));
-
-    const battleId = battleRef.key;
-
-    await set(battleRef, {
-
-      player1: {
-        uid: user.uid,
-        name: user.displayName || "MC"
-      },
-
-      player2: {
-        uid: opponent.uid,
-        name: opponent.name
-      },
-
-      status: "waiting",
-
-      createdAt: Date.now()
-
-    });
-
-    // Remove os dois jogadores da fila
-    await remove(ref(db, `matchmaking/${opponent.key}`));
-
-    if (matchmakingRef) {
-      await remove(matchmakingRef);
-    }
-
-    console.log("RHYMEX: batalha criada:", battleId);
-
-    // Abre a interface da batalha
-    window.openRealVoiceBattle(
-      battleId,
-      opponent
-    );
-
-  });
-
+const rtcConfig = {
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" }
+  ]
 };
 
 
 // ==========================================
-// ABRIR BATALHA DE VOZ
+// MICROFONE
 // ==========================================
 
-window.openRealVoiceBattle = function(battleId, opponent) {
+async function startVoiceMicrophone() {
 
-  const overlay = document.getElementById("voice-battle-overlay");
+  try {
 
-  if (!overlay) return;
-  
-    startVoiceMicrophone();
+    voiceLocalStream =
+      await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false
+      });
 
-  overlay.classList.add("active");
+    console.log("RHYMEX: microfone ativado.");
 
-  const localName = document.getElementById("voice-local-name");
-  const remoteName = document.getElementById("voice-remote-name");
+    const micStatus =
+      document.getElementById("voice-mic-status");
 
-  if (localName) {
-    localName.innerText =
-      window.rhymexUser?.displayName || "Você";
+    if (micStatus) {
+      micStatus.innerText = "Microfone ativado";
+      micStatus.style.color = "var(--success)";
+    }
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "RHYMEX: erro ao acessar microfone:",
+      error
+    );
+
+    const micStatus =
+      document.getElementById("voice-mic-status");
+
+    if (micStatus) {
+      micStatus.innerText = "Microfone não autorizado";
+      micStatus.style.color = "var(--danger)";
+    }
+
+    alert(
+      "Não foi possível acessar o microfone."
+    );
+
+    return false;
   }
 
-  if (remoteName) {
-    remoteName.innerText =
-      opponent.name || "Adversário";
+}
+
+
+// ==========================================
+// CRIAR CONEXÃO WEBRTC
+// ==========================================
+
+function createVoicePeerConnection() {
+
+  voicePeerConnection =
+    new RTCPeerConnection(rtcConfig);
+
+
+  // RECEBER ÁUDIO DO ADVERSÁRIO
+  voicePeerConnection.ontrack = (event) => {
+
+    const remoteAudio =
+      document.getElementById(
+        "voice-remote-audio"
+      );
+
+    if (
+      remoteAudio &&
+      event.streams &&
+      event.streams[0]
+    ) {
+
+      remoteAudio.srcObject =
+        event.streams[0];
+
+      remoteAudio.play().catch(() => {});
+
+      console.log(
+        "RHYMEX: áudio do adversário recebido."
+      );
+
+    }
+
+  };
+
+
+  // ENVIAR NOSSO MICROFONE
+  if (voiceLocalStream) {
+
+    voiceLocalStream
+      .getTracks()
+      .forEach((track) => {
+
+        voicePeerConnection.addTrack(
+          track,
+          voiceLocalStream
+        );
+
+      });
+
   }
 
-  const status =
-    document.getElementById("voice-battle-status");
 
-  if (status) {
-    status.innerText = "ADVERSÁRIO ENCONTRADO";
-    status.style.color = "var(--success)";
+  // STATUS DA CONEXÃO
+  voicePeerConnection.onconnectionstatechange =
+    () => {
+
+      const state =
+        voicePeerConnection.connectionState;
+
+      console.log(
+        "RHYMEX WebRTC:",
+        state
+      );
+
+      const status =
+        document.getElementById(
+          "voice-battle-status"
+        );
+
+      if (!status) return;
+
+      if (state === "connected") {
+
+        status.innerText =
+          "VOZ CONECTADA";
+
+        status.style.color =
+          "var(--success)";
+
+      }
+
+      if (
+        state === "disconnected" ||
+        state === "failed"
+      ) {
+
+        status.innerText =
+          "CONEXÃO PERDIDA";
+
+        status.style.color =
+          "var(--danger)";
+
+      }
+
+    };
+
+
+  return voicePeerConnection;
+}
+
+
+// ==========================================
+// CRIAR BATALHA
+// ==========================================
+
+async function createRealBattle(
+  myQueueKey,
+  opponent
+) {
+
+  const user =
+    window.rhymexUser;
+
+  const battleRef =
+    push(ref(db, "battles"));
+
+  const battleId =
+    battleRef.key;
+
+
+  await set(battleRef, {
+
+    player1: {
+      uid: user.uid,
+      name: user.displayName || "MC"
+    },
+
+    player2: {
+      uid: opponent.uid,
+      name: opponent.name || "MC"
+    },
+
+    status: "waiting",
+
+    createdAt: Date.now()
+
+  });
+
+
+  // Marca os dois jogadores com o mesmo battleId
+  await update(
+    ref(db, `matchmaking/${myQueueKey}`),
+    {
+      status: "matched",
+      battleId: battleId
+    }
+  );
+
+  await update(
+    ref(db, `matchmaking/${opponent.key}`),
+    {
+      status: "matched",
+      battleId: battleId
+    }
+  );
+
+
+  console.log(
+    "RHYMEX: batalha criada:",
+    battleId
+  );
+
+}
+
+
+// ==========================================
+// ENTRAR NO MATCHMAKING
+// ==========================================
+
+window.startRealMatchmaking =
+async function() {
+
+  const user =
+    window.rhymexUser;
+
+  if (!user) {
+
+    alert(
+      "Você precisa estar logado para entrar em uma batalha."
+    );
+
+    return;
+
   }
 
-  lucide.createIcons();
 
-  console.log("RHYMEX: entrando na batalha:", battleId);
+  // Evita entrar duas vezes
+  if (matchmakingRef) {
+
+    console.log(
+      "RHYMEX: você já está na fila."
+    );
+
+    return;
+
+  }
+
+
+  const queueRef =
+    ref(db, "matchmaking");
+
+
+  matchmakingRef =
+    push(queueRef);
+
+
+  const myQueueKey =
+    matchmakingRef.key;
+
+
+  await set(
+    matchmakingRef,
+    {
+
+      uid: user.uid,
+
+      name:
+        user.displayName || "MC",
+
+      status: "waiting",
+
+      joinedAt:
+        Date.now()
+
+    }
+  );
+
+
+  console.log(
+    "RHYMEX: entrou na fila."
+  );
+
+
+  // ========================================
+  // OBSERVAR NOSSA PRÓPRIA ENTRADA
+  // ========================================
+
+  ownQueueListener =
+    onValue(
+      matchmakingRef,
+      async (snapshot) => {
+
+        const data =
+          snapshot.val();
+
+        if (!data) return;
+
+
+        if (
+          data.status === "matched" &&
+          data.battleId
+        ) {
+
+          const battleId =
+            data.battleId;
+
+
+          // Evita abrir duas vezes
+          if (
+            currentBattleId === battleId
+          ) {
+            return;
+          }
+
+
+          currentBattleId =
+            battleId;
+
+
+          // Descobrir adversário
+          const allPlayers =
+            await get(queueRef);
+
+
+          let opponent =
+            null;
+
+
+          allPlayers.forEach(
+            (child) => {
+
+              const player =
+                child.val();
+
+              if (
+                player &&
+                player.uid &&
+                player.uid !== user.uid &&
+                player.battleId === battleId
+              ) {
+
+                opponent = {
+                  key: child.key,
+                  ...player
+                };
+
+              }
+
+            }
+          );
+
+
+          if (!opponent) {
+
+            console.error(
+              "RHYMEX: adversário não encontrado."
+            );
+
+            return;
+
+          }
+
+
+          // Para observar a fila
+          if (matchmakingListener) {
+            matchmakingListener();
+            matchmakingListener = null;
+          }
+
+
+          if (ownQueueListener) {
+            ownQueueListener();
+            ownQueueListener = null;
+          }
+
+
+          window.openRealVoiceBattle(
+            battleId,
+            opponent
+          );
+
+        }
+
+      }
+    );
+
+
+  // ========================================
+  // PROCURAR ADVERSÁRIO
+  // ========================================
+
+  matchmakingListener =
+    onValue(
+      queueRef,
+      async (snapshot) => {
+
+        const players = [];
+
+
+        snapshot.forEach(
+          (child) => {
+
+            const data =
+              child.val();
+
+            if (
+              data &&
+              data.uid &&
+              data.uid !== user.uid &&
+              data.status === "waiting"
+            ) {
+
+              players.push({
+                key: child.key,
+                ...data
+              });
+
+            }
+
+          }
+        );
+
+
+        if (
+          players.length === 0
+        ) {
+          return;
+        }
+
+
+        // Ordena pelo UID para escolher
+        // quem será o criador da batalha
+        players.sort(
+          (a, b) =>
+            a.uid.localeCompare(b.uid)
+        );
+
+
+        const opponent =
+          players[0];
+
+
+        // Somente o UID menor cria a batalha.
+        // Isso evita os dois criarem salas diferentes.
+        if (
+          user.uid.localeCompare(
+            opponent.uid
+          ) < 0
+        ) {
+
+          // Confirma que o adversário
+          // ainda está esperando
+          const opponentSnap =
+            await get(
+              ref(
+                db,
+                `matchmaking/${opponent.key}`
+              )
+            );
+
+
+          const opponentData =
+            opponentSnap.val();
+
+
+          if (
+            !opponentData ||
+            opponentData.status !== "waiting"
+          ) {
+
+            return;
+
+          }
+
+
+          await createRealBattle(
+            myQueueKey,
+            opponent
+          );
+
+        }
+
+      }
+    );
 
 };
 
@@ -1831,30 +2162,640 @@ window.openRealVoiceBattle = function(battleId, opponent) {
 // CANCELAR MATCHMAKING
 // ==========================================
 
-window.cancelRealMatchmaking = async function() {
+window.cancelRealMatchmaking =
+async function() {
+
+  if (matchmakingListener) {
+
+    matchmakingListener();
+
+    matchmakingListener = null;
+
+  }
+
+
+  if (ownQueueListener) {
+
+    ownQueueListener();
+
+    ownQueueListener = null;
+
+  }
+
+
+  if (matchmakingRef) {
+
+    try {
+
+      await remove(
+        matchmakingRef
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Erro ao sair da fila:",
+        error
+      );
+
+    }
+
+    matchmakingRef = null;
+
+  }
+
+
+  console.log(
+    "RHYMEX: saiu da fila."
+  );
+
+};
+
+
+// PONTE PARA O BOTÃO DO HTML
+window.cancelBattleMatchmaking = async function() {
+  document.getElementById('matchmaking-overlay').classList.remove('active');
+  await window.cancelRealMatchmaking();
+};
+
+
+// ==========================================
+// ABRIR BATALHA
+// ==========================================
+
+window.openRealVoiceBattle =
+async function(
+  battleId,
+  opponent
+) {
+
+  const overlay =
+    document.getElementById(
+      "voice-battle-overlay"
+    );
+
+
+  if (!overlay) return;
+
+
+  currentBattleId =
+    battleId;
+
+  currentOpponent =
+    opponent;
+
+
+  overlay.classList.add(
+    "active"
+  );
+
+
+  const localName =
+    document.getElementById(
+      "voice-local-name"
+    );
+
+  const remoteName =
+    document.getElementById(
+      "voice-remote-name"
+    );
+
+
+  if (localName) {
+
+    localName.innerText =
+      window.rhymexUser?.displayName ||
+      "Você";
+
+  }
+
+
+  if (remoteName) {
+
+    remoteName.innerText =
+      opponent.name ||
+      "Adversário";
+
+  }
+
+
+  // Avatar local
+  const localAvatar =
+    document.getElementById(
+      "voice-local-avatar"
+    );
+
+
+  if (localAvatar) {
+
+    const name =
+      window.rhymexUser?.displayName ||
+      "MC";
+
+    localAvatar.innerText =
+      name
+        .split(" ")
+        .map(p => p[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+
+  }
+
+
+  // Avatar adversário
+  const remoteAvatar =
+    document.getElementById(
+      "voice-remote-avatar"
+    );
+
+
+  if (remoteAvatar) {
+
+    const name =
+      opponent.name ||
+      "MC";
+
+    remoteAvatar.innerText =
+      name
+        .split(" ")
+        .map(p => p[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+
+  }
+
+
+  lucide.createIcons();
+
+
+  // Ativa microfone
+  const micOk =
+    await startVoiceMicrophone();
+
+
+  if (!micOk) {
+    return;
+  }
+
+
+  // Cria WebRTC
+  createVoicePeerConnection();
+
+
+  // Descobre quem é player 1
+  const user =
+    window.rhymexUser;
+
+
+  const isCaller =
+    user.uid.localeCompare(
+      opponent.uid
+    ) < 0;
+
+
+  console.log(
+    "RHYMEX:",
+    isCaller
+      ? "sou o CALLER"
+      : "sou o ANSWERER"
+  );
+
+
+  if (isCaller) {
+
+    await startCallerSignaling();
+
+  } else {
+
+    await startAnswererSignaling();
+
+  }
+
+};
+
+
+// ==========================================
+// CALLER — CRIAR OFFER
+// ==========================================
+
+async function startCallerSignaling() {
+
+  const battleId =
+    currentBattleId;
+
+
+  const battleRef =
+    ref(
+      db,
+      `battles/${battleId}`
+    );
+
+
+  // ICE do caller
+  voicePeerConnection.onicecandidate =
+    async (event) => {
+
+      if (!event.candidate) return;
+
+
+      await push(
+        ref(
+          db,
+          `battles/${battleId}/callerCandidates`
+        ),
+        event.candidate.toJSON()
+      );
+
+    };
+
+
+  // Criar offer
+  const offer =
+    await voicePeerConnection.createOffer();
+
+
+  await voicePeerConnection.setLocalDescription(
+    offer
+  );
+
+
+  await set(
+    ref(
+      db,
+      `battles/${battleId}/offer`
+    ),
+    {
+      type: offer.type,
+      sdp: offer.sdp
+    }
+  );
+
+
+  console.log(
+    "RHYMEX: offer enviada."
+  );
+
+
+  // Esperar answer
+  onValue(
+    ref(
+      db,
+      `battles/${battleId}/answer`
+    ),
+    async (snapshot) => {
+
+      const answer =
+        snapshot.val();
+
+
+      if (
+        answer &&
+        !voicePeerConnection.currentRemoteDescription
+      ) {
+
+        await voicePeerConnection.setRemoteDescription(
+          new RTCSessionDescription(answer)
+        );
+
+
+        console.log(
+          "RHYMEX: answer recebida."
+        );
+
+      }
+
+    }
+  );
+
+
+  // Receber ICE do answerer
+  onChildAdded(
+    ref(
+      db,
+      `battles/${battleId}/calleeCandidates`
+    ),
+    async (snapshot) => {
+
+      try {
+
+        await voicePeerConnection.addIceCandidate(
+          new RTCIceCandidate(
+            snapshot.val()
+          )
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Erro ICE:",
+          error
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+// ==========================================
+// ANSWERER — RESPONDER OFFER
+// ==========================================
+
+async function startAnswererSignaling() {
+
+  const battleId =
+    currentBattleId;
+
+
+  // ICE do answerer
+  voicePeerConnection.onicecandidate =
+    async (event) => {
+
+      if (!event.candidate) return;
+
+
+      await push(
+        ref(
+          db,
+          `battles/${battleId}/calleeCandidates`
+        ),
+        event.candidate.toJSON()
+      );
+
+    };
+
+
+  // Esperar offer
+  onValue(
+    ref(
+      db,
+      `battles/${battleId}/offer`
+    ),
+    async (snapshot) => {
+
+      const offer =
+        snapshot.val();
+
+
+      if (
+        !offer ||
+        voicePeerConnection.currentRemoteDescription
+      ) {
+
+        return;
+
+      }
+
+
+      await voicePeerConnection.setRemoteDescription(
+        new RTCSessionDescription(offer)
+      );
+
+
+      console.log(
+        "RHYMEX: offer recebida."
+      );
+
+
+      const answer =
+        await voicePeerConnection.createAnswer();
+
+
+      await voicePeerConnection.setLocalDescription(
+        answer
+      );
+
+
+      await set(
+        ref(
+          db,
+          `battles/${battleId}/answer`
+        ),
+        {
+          type: answer.type,
+          sdp: answer.sdp
+        }
+      );
+
+
+      console.log(
+        "RHYMEX: answer enviada."
+      );
+
+    }
+  );
+
+
+  // Receber ICE do caller
+  onChildAdded(
+    ref(
+      db,
+      `battles/${battleId}/callerCandidates`
+    ),
+    async (snapshot) => {
+
+      try {
+
+        await voicePeerConnection.addIceCandidate(
+          new RTCIceCandidate(
+            snapshot.val()
+          )
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Erro ICE:",
+          error
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+// ==========================================
+// MUTAR MICROFONE
+// ==========================================
+
+window.toggleVoiceMute =
+function() {
+
+  if (!voiceLocalStream) {
+    return;
+  }
+
+
+  const audioTracks =
+    voiceLocalStream.getAudioTracks();
+
+
+  if (!audioTracks.length) {
+    return;
+  }
+
+
+  const track =
+    audioTracks[0];
+
+
+  track.enabled =
+    !track.enabled;
+
+
+  const button =
+    document.getElementById(
+      "voice-mute-btn"
+    );
+
+
+  const status =
+    document.getElementById(
+      "voice-mic-status"
+    );
+
+
+  if (!track.enabled) {
+
+    if (button) {
+      button.innerHTML =
+        '<i data-lucide="mic-off" style="width:18px;"></i> Desmutar';
+    }
+
+    if (status) {
+      status.innerText =
+        "Microfone mutado";
+    }
+
+  } else {
+
+    if (button) {
+      button.innerHTML =
+        '<i data-lucide="mic" style="width:18px;"></i> Mutar';
+    }
+
+    if (status) {
+      status.innerText =
+        "Microfone ativado";
+    }
+
+  }
+
+
+  lucide.createIcons();
+
+};
+
+
+// ==========================================
+// SAIR DA BATALHA
+// ==========================================
+
+window.leaveVoiceBattle =
+async function() {
+
+  console.log(
+    "RHYMEX: saindo da batalha..."
+  );
+
+
+  // Parar microfone
+  if (voiceLocalStream) {
+
+    voiceLocalStream
+      .getTracks()
+      .forEach(
+        track => track.stop()
+      );
+
+    voiceLocalStream = null;
+
+  }
+
+
+  // Fechar WebRTC
+  if (voicePeerConnection) {
+
+    voicePeerConnection.close();
+
+    voicePeerConnection = null;
+
+  }
+
+
+  // Limpar áudio remoto
+  const remoteAudio =
+    document.getElementById(
+      "voice-remote-audio"
+    );
+
+
+  if (remoteAudio) {
+
+    remoteAudio.pause();
+    remoteAudio.srcObject = null;
+
+  }
+
+
+  // Remover battle atual
+  // NÃO apaga a batalha inteira, só sai da fila
+  if (matchmakingRef) {
+    try {
+      await remove(matchmakingRef);
+    } catch (e) {}
+    matchmakingRef = null;
+  }
+
+  if (ownQueueListener) {
+    ownQueueListener();
+    ownQueueListener = null;
+  }
 
   if (matchmakingListener) {
     matchmakingListener();
     matchmakingListener = null;
   }
 
-  if (matchmakingRef) {
 
-    try {
-      await remove(matchmakingRef);
-    } catch (error) {
-      console.error(
-        "Erro ao sair da fila:",
-        error
-      );
-    }
+  currentBattleId = null;
+  currentOpponent = null;
 
-    matchmakingRef = null;
+
+  const overlay =
+    document.getElementById(
+      "voice-battle-overlay"
+    );
+
+
+  if (overlay) {
+
+    overlay.classList.remove(
+      "active"
+    );
+
   }
 
-  console.log("RHYMEX: saiu da fila.");
+
+  console.log(
+    "RHYMEX: batalha encerrada."
+  );
 
 };
+
+
+
+
+  
+
+
 </script>
 </body>
 </html>
