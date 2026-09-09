@@ -1550,6 +1550,62 @@ import {
   const auth = getAuth(app);
 const db = getDatabase(app);
 
+// ==========================================
+// RHYMEX — WEBRTC DA BATALHA
+// ==========================================
+
+let voicePeerConnection = null;
+let voiceLocalStream = null;
+let currentBattleId = null;
+let currentOpponent = null;
+
+const rtcConfig = {
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" }
+  ]
+};
+
+async function startVoiceMicrophone() {
+
+  try {
+
+    voiceLocalStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false
+    });
+
+    console.log("RHYMEX: microfone ativado.");
+
+    const micStatus =
+      document.getElementById("voice-mic-status");
+
+    if (micStatus) {
+      micStatus.innerText = "Microfone ativado";
+      micStatus.style.color = "var(--success)";
+    }
+
+    return true;
+
+  } catch (error) {
+
+    console.error("RHYMEX: erro ao acessar microfone:", error);
+
+    const micStatus =
+      document.getElementById("voice-mic-status");
+
+    if (micStatus) {
+      micStatus.innerText = "Microfone não autorizado";
+      micStatus.style.color = "var(--danger)";
+    }
+
+    alert("Não foi possível acessar o microfone.");
+
+    return false;
+  }
+
+}
+
 window.rhymexUser = null;
 window.rhymexAuthReady = false;
 
@@ -1738,6 +1794,8 @@ window.openRealVoiceBattle = function(battleId, opponent) {
   const overlay = document.getElementById("voice-battle-overlay");
 
   if (!overlay) return;
+  
+    startVoiceMicrophone();
 
   overlay.classList.add("active");
 
