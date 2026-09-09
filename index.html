@@ -1989,37 +1989,31 @@ async function() {
             battleId;
 
 
-          // Descobrir adversário
-          const allPlayers =
-            await get(queueRef);
+          // Descobrir adversário DIRETO da sala da batalha (mais seguro)
+          const battleSnap = await get(ref(db, `battles/${battleId}`));
+          const battleData = battleSnap.val();
 
+          if (!battleData) {
+            console.error("RHYMEX: batalha não encontrada.");
+            return;
+          }
 
-          let opponent =
-            null;
+          let opponent = null;
 
-
-          allPlayers.forEach(
-            (child) => {
-
-              const player =
-                child.val();
-
-              if (
-                player &&
-                player.uid &&
-                player.uid !== user.uid &&
-                player.battleId === battleId
-              ) {
-
-                opponent = {
-                  key: child.key,
-                  ...player
-                };
-
-              }
-
-            }
-          );
+          // Se eu sou o player1, meu adversário é o player2 e vice-versa
+          if (battleData.player1.uid === user.uid) {
+            opponent = {
+              uid: battleData.player2.uid,
+              name: battleData.player2.name,
+              key: null // não precisa mais da key da fila
+            };
+          } else {
+            opponent = {
+              uid: battleData.player1.uid,
+              name: battleData.player1.name,
+              key: null
+            };
+          }
 
 
           if (!opponent) {
@@ -2233,6 +2227,12 @@ async function(
     document.getElementById(
       "voice-battle-overlay"
     );
+  
+    // Fecha a tela de procurando adversário
+  const searchingOverlay = document.getElementById('matchmaking-overlay');
+  if (searchingOverlay) {
+    searchingOverlay.classList.remove('active');
+  }
 
 
   if (!overlay) return;
