@@ -678,6 +678,19 @@
         </div>
         <div class="brand-title">RHYMEX</div>
       </div>
+
+      <div style="display:flex; align-items:center; gap:8px;">
+        <!-- ONLINE (só aparece na HOME) -->
+        <div id="header-online-count" style="display:flex; align-items:center; gap:6px; background:var(--bg-card); padding:6px 12px; border-radius:var(--radius-full); border:1px solid var(--border-color);">
+          <div style="width:8px; height:8px; background:var(--success); border-radius:50%; box-shadow:0 0 8px var(--success);"></div>
+          <span style="font-size:0.75rem; font-weight:700; color:var(--text-secondary);">0 online</span>
+        </div>
+
+        <!-- SAIR (só aparece no PERFIL) -->
+        <button id="header-logout-btn" onclick="logoutRhymex()" title="Sair da conta" style="display:none; width:36px; height:36px; background:var(--bg-card); border:1px solid rgba(239,68,68,0.3); border-radius:50%; color:var(--danger); align-items:center; justify-content:center; cursor:pointer;">
+          <i data-lucide="log-out" style="width:18px;"></i>
+        </button>
+      </div>
       
     </header>
 
@@ -707,6 +720,34 @@
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">Batalhe por voz em tempo real contra MCs de todo o país.</p>
           <button class="btn btn-primary" onclick="startBattleMatchmaking()">
             Procurar Adversário Agora
+          </button>
+        </div>
+
+                <!-- CARD 2 - MODO PLATEIA -->
+        <div class="card" style="border-color: rgba(239, 68, 68, 0.2);">
+          <div class="section-header" style="margin-bottom: 8px;">
+            <h3 class="section-title" style="display:flex; align-items:center; gap:8px;">
+              <i data-lucide="eye" style="color: var(--danger); width: 20px;"></i> Modo Plateia
+            </h3>
+            <span class="tag" style="background: rgba(239, 68, 68, 0.15); color: var(--danger);">AO VIVO</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">Assista uma batalha aleatória acontecendo agora e vote no seu MC favorito.</p>
+          <button class="btn btn-secondary" onclick="watchRandomBattle()">
+            <i data-lucide="play" style="width: 18px;"></i> Ver Batalha Aleatória
+          </button>
+        </div>
+
+        <!-- CARD 3 - APOIAR O PROJETO -->
+        <div class="card" style="background: linear-gradient(135deg, rgba(24, 26, 38, 0.9), rgba(251, 191, 36, 0.08)); border-color: rgba(251, 191, 36, 0.2);">
+          <div class="section-header" style="margin-bottom: 8px;">
+            <h3 class="section-title" style="display:flex; align-items:center; gap:8px;">
+              <i data-lucide="heart" style="color: #FBBF24; width: 20px;"></i> Apoie o RHYMEX
+            </h3>
+            <span class="tag" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24;">❤️</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">Curtiu o projeto? Ajude a manter o servidor das batalhas online e ganhe o selo de Apoiador.</p>
+          <button class="btn" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24; border: 1px solid rgba(251, 191, 36, 0.3);" onclick="supportRhymex()">
+            <i data-lucide="coffee" style="width: 18px;"></i> Doar / Apoiar
           </button>
         </div>
       </section>
@@ -1015,9 +1056,19 @@
         <span id="profile-avatar">KR</span>
       </div>
 
-      <h2 id="profile-name" style="font-size: 1.3rem; font-weight: 800;">
-        MC Krono
-      </h2>
+      <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:4px;">
+        <h2 id="profile-name" style="font-size: 1.3rem; font-weight: 800;">
+          MC Krono
+        </h2>
+        <button onclick="enableEditName()" style="background:var(--bg-card-hover); border:1px solid var(--border-color); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--text-secondary); cursor:pointer;">
+          <i data-lucide="pencil" style="width:14px;"></i>
+        </button>
+      </div>
+
+      <div id="edit-name-box" style="display:none; max-width:280px; margin:0 auto 8px auto; gap:8px;">
+        <input id="edit-name-input" type="text" maxlength="20" placeholder="Seu nome de MC" style="flex:1; padding:10px 12px; background:var(--bg-card); border:1px solid var(--border-active); border-radius:var(--radius-sm); color:var(--text-primary); font-family:var(--font-main); outline:none;">
+        <button class="btn btn-primary" style="width:auto; padding:10px 14px;" onclick="saveNewName()">Salvar</button>
+      </div>
 
       <p id="profile-email" style="font-size: 0.8rem; color: var(--text-secondary);">
         Usuário RHYMEX
@@ -1060,6 +1111,8 @@
         <div style="font-size: 0.65rem; color: var(--text-muted);">50 temas treinados</div>
       </div>
 
+
+
     </div>
 
   </div>
@@ -1069,7 +1122,7 @@
     </main>
 
     <!-- OVERLAY: FREESTYLE ACTIVE PRACTICE ARENA -->
-    <div id="session-arena" class="session-arena">
+        <div id="session-arena" class="session-arena">
       <div class="arena-header">
         <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeFreestyleSession()">
           <i data-lucide="x" style="width: 18px;"></i> Sair
@@ -1079,6 +1132,20 @@
           <i data-lucide="pause" style="width: 18px;"></i>
         </button>
       </div>
+
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:12px; display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+        <div style="width:44px; height:44px; background:var(--accent-purple-glow); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; color:var(--accent-purple-bright);">
+          <i data-lucide="music" style="width:22px;"></i>
+        </div>
+        <div style="flex:1;">
+          <div id="beat-name" style="font-size:0.85rem; font-weight:700;">Boombap 90 - Clássico</div>
+          <div id="beat-style" style="font-size:0.7rem; color:var(--text-secondary);">BPM 90 • Treino de flow</div>
+        </div>
+        <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextBeat()">
+          <i data-lucide="skip-forward" style="width:18px;"></i>
+        </button>
+      </div>
+      <audio id="beat-audio" loop playsinline></audio>
 
       <div class="arena-word-display">
         <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">SUA PALAVRA É:</span>
@@ -1346,16 +1413,40 @@
       </button>
     </nav>
 
+        <!-- MODAL BONITO RHYMEX -->
+    <div id="rhymex-modal" style="position:absolute; inset:0; background:rgba(9,10,15,0.9); backdrop-filter:blur(12px); z-index:200; display:none; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:var(--bg-card); border:1px solid var(--border-active); border-radius:var(--radius-lg); padding:24px; width:100%; max-width:340px; text-align:center; box-shadow:0 25px 50px -12px rgba(0,0,0,0.8); animation: fadeIn 0.3s ease;">
+        <div id="rhymex-modal-icon" style="width:60px; height:60px; background:var(--accent-purple-glow); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px auto; color:var(--accent-purple-bright);">
+          <i data-lucide="mic" style="width:28px; height:28px;"></i>
+        </div>
+        <h3 id="rhymex-modal-title" style="font-size:1.2rem; font-weight:800; margin-bottom:8px;">Atenção, MC!</h3>
+        <p id="rhymex-modal-text" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5; margin-bottom:20px;">Você precisa estar logado para batalhar.</p>
+        <div id="rhymex-modal-buttons" style="display:flex; gap:10px;">
+          <button class="btn btn-secondary" style="flex:1;" onclick="closeRhymexModal()">Fechar</button>
+          <button id="rhymex-modal-action" class="btn btn-primary" style="flex:1; display:none;">Fazer Login</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- JavaScript Single-File Application Logic -->
   <script>
     // --- APP DATABASE & STATE ---
-    const vocabularyList = [
+        const vocabularyList = [
       "Visão", "Resiliência", "Subversão", "Consciência", "Periferia", 
       "Labyrinth", "Horizonte", "Sintonia", "Transformação", "Metáfora", 
       "Soberania", "Legado", "Frequência", "Impacto", "Dinastia"
     ];
+
+    const beatsList = [
+      { name: "Boombap 90 - Clássico", style: "BPM 90 • Flow raiz", url: "beat1.mp3" },
+      { name: "Trap 140 - Agressivo", style: "BPM 140 • Ataque rápido", url: "https://cdn.pixabay.com/audio/2024/08/02/audio_65a508e136.mp3" },
+      { name: "Drill 142 - Sombrio", style: "BPM 142 • Punchlines", url: "https://cdn.pixabay.com/audio/2022/08/06/audio_63d3a6d3b3.mp3" },
+      { name: "Lo-fi 85 - Criativo", style: "BPM 85 • Repertório", url: "https://cdn.pixabay.com/audio/2022/03/10/audio_1b8a2c0a88.mp3" },
+      { name: "Funk 130 - Mandelão", style: "BPM 130 • Velocidade", url: "https://cdn.pixabay.com/audio/2022/06/07/audio_b9bd4170e8.mp3" }
+    ];
+    let currentBeatIndex = 0;
 
     let timerInterval = null;
     let currentTimerValue = 5;
@@ -1376,16 +1467,14 @@ function switchTab(tabName) {
   const targetView = document.getElementById(`view-${tabName}`);
   if (targetView) targetView.classList.add('active');
 
-  // --- PROTEÇÃO DO PERFIL CORRIGIDA ---
   if (tabName === 'profile') {
     const loginRequired = document.getElementById('profile-login-required');
     const profileContent = document.getElementById('profile-content');
     const profileLoading = document.getElementById('profile-loading');
 
-    // Se o Firebase ainda está verificando a sessão, mostra carregando
     if (window.rhymexAuthReady === false) {
-      loginRequired.style.display = 'none';
-      profileContent.style.display = 'none';
+      if(loginRequired) loginRequired.style.display = 'none';
+      if(profileContent) profileContent.style.display = 'none';
       if(profileLoading) profileLoading.style.display = 'block';
       return;
     }
@@ -1393,13 +1482,11 @@ function switchTab(tabName) {
     if(profileLoading) profileLoading.style.display = 'none';
 
     if (window.rhymexUser) {
-      loginRequired.style.display = 'none';
-      profileContent.style.display = 'block';
-
+      if(loginRequired) loginRequired.style.display = 'none';
+      if(profileContent) profileContent.style.display = 'block';
       const profileName = document.getElementById('profile-name');
       const profileEmail = document.getElementById('profile-email');
       const profileAvatar = document.getElementById('profile-avatar');
-
       if (profileName) profileName.innerText = window.rhymexUser.displayName || 'MC';
       if (profileEmail) profileEmail.innerText = window.rhymexUser.email || 'Usuário RHYMEX';
       if (profileAvatar) {
@@ -1408,31 +1495,103 @@ function switchTab(tabName) {
         profileAvatar.innerText = initials;
       }
     } else {
-      loginRequired.style.display = 'block';
-      profileContent.style.display = 'none';
+      if(loginRequired) loginRequired.style.display = 'block';
+      if(profileContent) profileContent.style.display = 'none';
     }
-    lucide.createIcons();
   }
 
   const activeNavIndex = { 'home':0, 'practice':1, 'repertoire':1, 'vocab':1, 'battle':2, 'ranking':3, 'profile':4 }[tabName];
   const navButtons = document.querySelectorAll('.nav-item');
   if (navButtons[activeNavIndex]) navButtons[activeNavIndex].classList.add('active');
+
+  const onlineCount = document.getElementById('header-online-count');
+  const logoutBtn = document.getElementById('header-logout-btn');
+
+  if (tabName === 'profile') {
+    if (onlineCount) onlineCount.style.display = 'none';
+    if (logoutBtn && window.rhymexUser) logoutBtn.style.display = 'flex';
+  } else {
+    if (onlineCount) onlineCount.style.display = 'flex';
+    if (logoutBtn) logoutBtn.style.display = 'none';
+  }
+
+  lucide.createIcons();
+}
+
+
+    
+
+function showRhymexModal({ icon = 'mic', title, text, actionText = null, actionLink = null }) {
+  const modal = document.getElementById('rhymex-modal');
+  const iconEl = document.getElementById('rhymex-modal-icon');
+  const titleEl = document.getElementById('rhymex-modal-title');
+  const textEl = document.getElementById('rhymex-modal-text');
+  const actionBtn = document.getElementById('rhymex-modal-action');
+  iconEl.innerHTML = `<i data-lucide="${icon}" style="width:28px; height:28px;"></i>`;
+  titleEl.innerText = title;
+  textEl.innerText = text;
+  if (actionText && actionLink) {
+    actionBtn.innerText = actionText;
+    actionBtn.style.display = 'flex';
+    actionBtn.onclick = () => { window.location.href = actionLink; };
+  } else {
+    actionBtn.style.display = 'none';
+  }
+  modal.style.display = 'flex';
+  lucide.createIcons();
+}
+function closeRhymexModal() {
+  document.getElementById('rhymex-modal').style.display = 'none';
 }
 
     
 
+
+    
     // --- FREESTYLE PRACTICE ENGINE ---
     function startFreestyleSession(modeTitle) {
       document.getElementById('session-mode-tag').innerText = modeTitle.toUpperCase();
       document.getElementById('session-arena').classList.add('active');
+      currentBeatIndex = Math.floor(Math.random() * beatsList.length);
+      playBeat(currentBeatIndex);
       nextWord();
       startTimer();
     }
 
-    function closeFreestyleSession() {
+    function playBeat(index) {
+      const beat = beatsList[index];
+      const audio = document.getElementById('beat-audio');
+      const nameEl = document.getElementById('beat-name');
+      const styleEl = document.getElementById('beat-style');
+      if (beat && audio) {
+        nameEl.innerText = beat.name;
+        styleEl.innerText = beat.style;
+        audio.src = beat.url;
+        audio.volume = 0.7;
+        audio.play().catch(() => {});
+      }
+      lucide.createIcons();
+    }
+
+    function nextBeat() {
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * beatsList.length);
+      } while (newIndex === currentBeatIndex && beatsList.length > 1);
+      
+      currentBeatIndex = newIndex;
+      playBeat(currentBeatIndex);
+    }
+
+        function closeFreestyleSession() {
       clearInterval(timerInterval);
       document.getElementById('session-arena').classList.remove('active');
-    }
+      const audio = document.getElementById('beat-audio');
+      if (audio) {
+        audio.pause();
+        audio.src = '';
+      }
+        }
 
     function nextWord() {
       const wordElement = document.getElementById('current-word');
@@ -1519,25 +1678,16 @@ function startBattleMatchmaking() {
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-  import {
+ import {
   getAuth,
   onAuthStateChanged,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  updateProfile,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-import {
-  getDatabase,
-  ref,
-  push,
-  set,
-  get,
-  onValue,
-  remove,
-  update,
-  runTransaction,
-  onChildAdded
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+import { getDatabase, ref, push, set, get, onValue, remove, update, onChildAdded, onDisconnect } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
   const firebaseConfig = {
    apiKey: "AIzaSyA02iDEhuslJ_FgM4hDKzf837sUHLDogk4",
@@ -1552,6 +1702,23 @@ import {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 const db = getDatabase(app);
+
+  // --- SISTEMA PRA QUEM NÃO LOGOU TAMBÉM CONTAR ---
+let anonId = localStorage.getItem('rhymex_anon_id');
+if (!anonId) {
+  anonId = 'anon_' + Math.random().toString(36).substring(2, 9) + Date.now();
+  localStorage.setItem('rhymex_anon_id', anonId);
+}
+const anonPresenceRef = ref(db, `presence/${anonId}`);
+set(anonPresenceRef, {
+  anon: true,
+  online: true,
+  lastSeen: Date.now()
+});
+onDisconnect(anonPresenceRef).remove();
+window.addEventListener('beforeunload', () => {
+  try { remove(anonPresenceRef); } catch(e) {}
+});
 
 // ==========================================
 // RHYMEX — WEBRTC DA BATALHA
@@ -1582,6 +1749,21 @@ setPersistence(auth, browserLocalPersistence)
 window.rhymexUser = user;
     
     if (user) {
+
+
+            // --- SISTEMA DE ONLINE REAL ---
+      const myPresenceRef = ref(db, `presence/${user.uid}`);
+      
+      // Quando entrar, marca como online
+      set(myPresenceRef, {
+        uid: user.uid,
+        name: user.displayName || 'MC',
+        online: true,
+        lastSeen: Date.now()
+      });
+
+      // Quando fechar o site, o Firebase remove sozinho
+      onDisconnect(myPresenceRef).remove();
       
       
       const profileLogin = document.getElementById('profile-login-required');
@@ -1639,6 +1821,29 @@ if (profileLogin && profileContent) {
       console.log("Nenhum usuário logado.");
     }
   });
+
+
+  // --- CONTADOR DE ONLINE REAL ---
+const presenceRef = ref(db, 'presence');
+
+onValue(presenceRef, (snapshot) => {
+  const onlineElement = document.getElementById('header-online-count');
+  if (!onlineElement) return;
+
+  const count = snapshot.size || snapshot.numChildren() || 0;
+  
+  let text = '';
+  if (count === 0) text = '0 online';
+  else if (count === 1) text = '1 online';
+  else if (count < 1000) text = `${count} online`;
+  else text = `${(count/1000).toFixed(1)}k online`;
+
+  // Atualiza só o texto, sem quebrar o ícone verde
+  const span = onlineElement.querySelector('span');
+  if (span) span.innerText = text;
+  
+  console.log(`RHYMEX: ${count} MCs online agora`);
+});
 
 
 
@@ -1897,9 +2102,13 @@ async function() {
 
   if (!user) {
 
-    alert(
-      "Você precisa estar logado para entrar em uma batalha."
-    );
+        showRhymexModal({
+      icon: 'lock',
+      title: 'Entre no jogo, MC!',
+      text: 'Você precisa fazer login para procurar um adversário e mostrar seu flow na arena.',
+      actionText: 'Fazer Login',
+      actionLink: 'login.html'
+    });
 
     return;
 
@@ -2204,6 +2413,71 @@ async function() {
   );
 
 };
+
+
+   // --- NOVOS CARDS DA HOME ---
+window.watchRandomBattle = function() {
+  const battlesRef = ref(db, 'battles');
+  get(battlesRef).then((snapshot) => {
+    if (!snapshot.exists()) {
+            showRhymexModal({
+        icon: 'eye-off',
+        title: 'Nenhuma batalha ao vivo',
+        text: 'Ninguém está batalhando agora. Seja o primeiro a começar uma batalha e chame a plateia!',
+        actionText: 'Ir pra Arena',
+        actionLink: null
+      });
+      document.getElementById('rhymex-modal-action').onclick = () => { closeRhymexModal(); switchTab('battle'); };
+      document.getElementById('rhymex-modal-action').style.display = 'flex';
+      switchTab('battle');
+      return;
+    }
+    
+    const battles = [];
+    snapshot.forEach(child => {
+      battles.push({ id: child.key, ...child.val() });
+    });
+    
+    const random = battles[Math.floor(Math.random() * battles.length)];
+    alert(`Entrando como plateia na batalha de ${random.player1?.name || 'MC'} vs ${random.player2?.name || 'MC'}`);
+    
+    document.getElementById('spectator-overlay').classList.add('active');
+    lucide.createIcons();
+  });
+}
+
+window.supportRhymex = function() {
+  const pixKey = 'cf350020-39da-42df-a4cc-ec0d60e2b131';
+  
+  showRhymexModal({
+    icon: 'heart',
+    title: 'Apoie o RHYMEX ❤️',
+    text: `Chave Pix (aleatória):\n${pixKey}\n\nClique em COPIAR CHAVE e faça um Pix de qualquer valor para ajudar a manter o servidor das batalhas online. Você ganha o selo de Apoiador!`,
+    actionText: 'Copiar Chave Pix',
+    actionLink: null
+  });
+  
+  const btn = document.getElementById('rhymex-modal-action');
+  btn.style.display = 'flex';
+  btn.innerText = 'Copiar Chave Pix';
+  btn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(pixKey);
+      btn.innerText = 'Copiado! ✅';
+      btn.style.background = 'var(--success)';
+      document.getElementById('rhymex-modal-text').innerText = `CHAVE COPIADA!\n${pixKey}\n\nAgora é só colar no seu banco e enviar. Valeu demais, MC! 🙏`;
+      setTimeout(() => {
+        closeRhymexModal();
+        btn.innerText = 'Copiar Chave Pix';
+        btn.style.background = '';
+      }, 5000);
+    } catch (e) {
+      // Se não conseguir copiar automático (iPhone antigo)
+      prompt('Copia essa chave Pix:', pixKey);
+    }
+  };
+}
+
 
 
 // PONTE PARA O BOTÃO DO HTML
@@ -2790,8 +3064,90 @@ async function() {
 
 };
 
+// --- EDITAR NOME DO MC ---
+window.enableEditName = function() {
+  const nameEl = document.getElementById('profile-name');
+  const box = document.getElementById('edit-name-box');
+  const input = document.getElementById('edit-name-input');
+
+  input.value = nameEl.innerText.replace('(Você)', '').trim();
+  box.style.display = 'flex';
+  input.focus();
+  lucide.createIcons();
+}
+
+window.saveNewName = async function() {
+  const input = document.getElementById('edit-name-input');
+  const newName = input.value.trim();
+
+  if (!newName || newName.length < 3) {
+    alert("O nome precisa ter pelo menos 3 letras, MC!");
+    return;
+  }
+
+  if (!auth.currentUser) {
+    alert("Você precisa estar logado.");
+    return;
+  }
+
+  try {
+    // Atualiza no Firebase Auth
+    await updateProfile(auth.currentUser, {
+      displayName: newName
+    });
+
+    // Atualiza na tela na hora
+    document.getElementById('profile-name').innerText = newName;
+    document.getElementById('edit-name-box').style.display = 'none';
+
+    // Atualiza avatar com iniciais novas
+    const avatar = document.getElementById('profile-avatar');
+    if (avatar) {
+      avatar.innerText = newName.split(' ').map(p => p[0]).join('').substring(0,2).toUpperCase();
+    }
+
+    // Atualiza variável global
+    window.rhymexUser.displayName = newName;
+
+    console.log("RHYMEX: Nome alterado para", newName);
+
+  } catch (error) {
+    console.error("Erro ao salvar nome:", error);
+    alert("Não deu pra salvar. Tenta de novo.");
+  }
+}
 
 
+window.logoutRhymex = async function() {
+  
+  const confirmar = confirm("Tem certeza que quer sair do RHYMEX?");
+
+  if (!confirmar) return;
+
+  try {
+    // Se tiver em batalha ou na fila, sai primeiro
+    if (window.leaveVoiceBattle) {
+      await window.leaveVoiceBattle();
+    }
+    if (window.cancelRealMatchmaking) {
+      await window.cancelRealMatchmaking();
+    }
+
+        // Sai da contagem de online
+    try { await remove(ref(db, `presence/${auth.currentUser.uid}`)); } catch(e) {}
+
+    await signOut(auth);
+
+    console.log("RHYMEX: usuário deslogado.");
+
+    // Manda pro login
+    window.location.href = 'login.html';
+
+  } catch (error) {
+    console.error("Erro ao sair:", error);
+    alert("Não deu pra sair agora. Tenta de novo.");
+  }
+}
 
   
 
