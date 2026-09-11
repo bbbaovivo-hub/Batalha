@@ -1267,17 +1267,17 @@
             <div class="skill-desc">Aprofunde seu conhecimento em temas para batalhas.</div>
           </div>
 
-          <div class="skill-card" onclick="switchTab('vocab')">
-            <div class="skill-icon"><i data-lucide="book-open"></i></div>
-            <div class="skill-title">Vocabulário</div>
-            <div class="skill-desc">Dicionário de rimas, sinônimos e termos complexos.</div>
+          <div class="skill-card" onclick="startFMSTraining()">
+  <div class="skill-icon"><i data-lucide="message-circle-question"></i></div>
+  <div class="skill-title">FMS - Pergunta e Resposta</div>
+  <div class="skill-desc">O site te ataca. Você responde rimando na lata.</div>
           </div>
 
-          <div class="skill-card" onclick="startRhymesPractice()">
-            <div class="skill-icon"><i data-lucide="zap"></i></div>
-            <div class="skill-title">Velocidade</div>
-            <div class="skill-desc">Exercícios de resposta rápida sob pressão de tempo.</div>
-          </div>
+                   <div class="skill-card" onclick="startSceneTraining()">
+            <div class="skill-icon"><i data-lucide="image"></i></div>
+            <div class="skill-title">Modo Cena</div>
+            <div class="skill-desc">Rime sobre o que você vê. Objetos e lugares.</div>
+                   </div> 
         </div>
 
         <!-- Modes Detail list -->
@@ -1291,13 +1291,13 @@
           <p style="font-size: 0.78rem; color: var(--text-secondary);">Receba uma palavra e monte obrigatoriamente um punchline com ela.</p>
         </div>
 
-        <div class="card card-interactive" onclick="startFreestyleSession('Conexão de Ideias')">
+                <div class="card card-interactive" onclick="openEscolaRima()" style="border-color: rgba(251, 191, 36, 0.25); background: linear-gradient(135deg, rgba(24, 26, 38, 0.9), rgba(251, 191, 36, 0.08));">
           <div class="section-header" style="margin-bottom:4px;">
-            <span style="font-weight: 700; font-size: 0.9rem;">Conexão de Ideias</span>
-            <span class="tag">Avançado</span>
+            <span style="font-weight: 700; font-size: 0.9rem; display:flex; align-items:center; gap:6px;"><i data-lucide="book-open" style="width:16px; color:#FBBF24;"></i> Escola da Rima</span>
+            <span class="tag" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24;">ESTUDO</span>
           </div>
-          <p style="font-size: 0.78rem; color: var(--text-secondary);">Conecte duas palavras totalmente sem relação em uma mesma estrofe.</p>
-        </div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Aprenda o que é métrica, punchline, flow, carteirada e como vencer uma batalha.</p>
+                </div>
       </section>
 
       <!-- 3. REPERTOIRE & KNOWLEDGE VIEW -->
@@ -1309,41 +1309,27 @@
           </div>
         </div>
 
-        <!-- Topics Grid -->
+                <!-- Topics Grid -->
         <div class="skills-grid">
-          <div class="card card-interactive" style="margin-bottom:0;" onclick="loadTopicChallenge('Sociedade e Desigualdade')">
+          <div class="card card-interactive" style="margin-bottom:0;" onclick="startRepertoireTraining('sociedade')">
             <span class="tag" style="margin-bottom: 6px; display:inline-block;">SOCIEDADE</span>
             <h4 style="font-size:0.9rem;">Desigualdade Social</h4>
           </div>
-          <div class="card card-interactive" style="margin-bottom:0;" onclick="loadTopicChallenge('Tecnologia e Futuro')">
+          <div class="card card-interactive" style="margin-bottom:0;" onclick="startRepertoireTraining('politica')">
+            <span class="tag" style="margin-bottom: 6px; display:inline-block;">POLÍTICA</span>
+            <h4 style="font-size:0.9rem;">Poder e Corrupção</h4>
+          </div>
+          <div class="card card-interactive" style="margin-bottom:0;" onclick="startRepertoireTraining('politica')">
             <span class="tag" style="margin-bottom: 6px; display:inline-block;">TECNOLOGIA</span>
             <h4 style="font-size:0.9rem;">Inteligência Artificial</h4>
           </div>
-          <div class="card card-interactive" style="margin-bottom:0;" onclick="loadTopicChallenge('Meio Ambiente')">
-            <span class="tag" style="margin-bottom: 6px; display:inline-block;">CIÊNCIA</span>
-            <h4 style="font-size:0.9rem;">Crise Climática</h4>
-          </div>
-          <div class="card card-interactive" style="margin-bottom:0;" onclick="loadTopicChallenge('Cultura Urbana')">
+          <div class="card card-interactive" style="margin-bottom:0;" onclick="startRepertoireTraining('sociedade')">
             <span class="tag" style="margin-bottom: 6px; display:inline-block;">HIP-HOP</span>
             <h4 style="font-size:0.9rem;">História do Rap</h4>
           </div>
         </div>
 
-        <!-- Active Topic Challenge Box -->
-        <div class="card" style="margin-top: 20px; border-color: var(--accent-purple-glow);" id="topic-challenge-box">
-          <div class="tag" style="background: var(--accent-purple-glow); color: var(--accent-purple-bright); margin-bottom: 8px;">DESAFIO DE CONHECIMENTO</div>
-          <h3 id="topic-title" style="font-size: 1.1rem; margin-bottom: 8px;">Tecnologia & Sociedade</h3>
-          <p id="topic-question" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">
-            "Como o uso excessivo das redes sociais afeta a saúde mental dos jovens na periferia?"
-          </p>
-          <div style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 14px;">
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">CONCEITOS CHAVE PARA INCLUIR NO SEU VERSO:</p>
-            <p style="font-size: 0.8rem; font-weight: 600; color: var(--accent-purple-bright);">Algoritmo • Alienação • Conexão • Realidade</p>
-          </div>
-          <button class="btn btn-primary" onclick="startFreestyleSession('Tema: Tecnologia')">
-            Improvisar sobre este tema
-          </button>
-        </div>
+        
       </section>
 
       <!-- 4. VOCABULARY DICTIONARY VIEW -->
@@ -1629,30 +1615,178 @@
         <div style="width:44px; height:44px; background:var(--accent-purple-glow); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; color:var(--accent-purple-bright);">
           <i data-lucide="music" style="width:22px;"></i>
         </div>
-        <div style="flex:1;">
-          <div id="beat-name" style="font-size:0.85rem; font-weight:700;">Boombap 90 - Clássico</div>
+                <div style="flex:1; min-width:0;">
+          <div id="beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Boombap 90 - Clássico</div>
           <div id="beat-style" style="font-size:0.7rem; color:var(--text-secondary);">BPM 90 • Treino de flow</div>
-        </div>
+                </div>
         <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextBeat()">
           <i data-lucide="skip-forward" style="width:18px;"></i>
         </button>
       </div>
       <audio id="beat-audio" loop playsinline></audio>
 
+          <!-- CONTROLE DE VELOCIDADE -->
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px 12px; display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:700;"><i data-lucide="zap" style="width:14px; display:inline;"></i> VELOCIDADE</span>
+        <div style="display:flex; gap:6px;">
+          <button class="speed-btn" data-speed="3" onclick="changeWordSpeed(3)" style="padding:6px 10px; border-radius:20px; border:1px solid var(--border-color); background:transparent; color:var(--text-secondary); font-size:0.7rem; font-weight:800;">3s</button>
+          <button class="speed-btn" data-speed="5" onclick="changeWordSpeed(5)" style="padding:6px 10px; border-radius:20px; border:1px solid var(--border-active); background:var(--accent-purple-glow); color:var(--accent-purple-bright); font-size:0.7rem; font-weight:800;">5s</button>
+          <button class="speed-btn" data-speed="8" onclick="changeWordSpeed(8)" style="padding:6px 10px; border-radius:20px; border:1px solid var(--border-color); background:transparent; color:var(--text-secondary); font-size:0.7rem; font-weight:800;">8s</button>
+          <button class="speed-btn" data-speed="10" onclick="changeWordSpeed(10)" style="padding:6px 10px; border-radius:20px; border:1px solid var(--border-color); background:transparent; color:var(--text-secondary); font-size:0.7rem; font-weight:800;">10s</button>
+        </div>
+      </div>
+
       <div class="arena-word-display">
-        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">SUA PALAVRA É:</span>
+        <span id="label-sua-palavra" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">SUA PALAVRA É:</span>
         <div class="word-main" id="current-word">CARREGANDO...</div>
         <p style="font-size: 0.85rem; color: var(--text-secondary);" id="word-hint">Desenvolva seu verso antes do tempo acabar!</p>
       </div>
 
       <div style="text-align: center; margin-bottom: 30px;">
-        <div class="arena-timer" id="session-timer">05</div>
-        <p style="font-size: 0.75rem; color: var(--text-muted);">próxima palavra em segundos</p>
+                <div class="arena-timer" id="session-timer">05</div>
+        <p id="timer-label" style="font-size: 0.75rem; color: var(--text-muted);">próxima palavra em segundos</p>
       </div>
 
-      <button class="btn btn-primary" onclick="nextWord()">
+      <button id="btn-next-word" class="btn btn-primary" onclick="nextWord()">
         Próxima Palavra Agora <i data-lucide="skip-forward" style="width: 18px;"></i>
       </button>
+    </div>
+
+
+        <!-- OVERLAY: REPERTORIO - DETETIVE DE CONCEITO (MODO 2) -->
+    <div id="repertoire-arena" class="session-arena">
+      <div class="arena-header">
+        <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeRepertoireSession()">
+          <i data-lucide="x" style="width: 18px;"></i> Sair
+        </button>
+        <span class="tag" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24;">DETETIVE DE CONCEITO</span>
+        <div id="repertoire-timer" style="font-family:var(--font-mono); font-weight:800; color:#FBBF24; font-size:1.5rem;">30</div>
+      </div>
+
+      <div style="background:var(--bg-card); border:1px solid rgba(251, 191, 36, 0.3); border-radius:16px; padding:16px; margin-top:16px;">
+        <span id="concept-word" style="font-size:1.3rem; font-weight:800; color:#FBBF24;">DEMAGOGIA</span>
+        <p id="concept-def" style="font-size:0.9rem; color:white; margin:8px 0;">Definição aqui</p>
+        <p id="concept-example" style="font-size:0.75rem; color:#9ca3af; font-style:italic;">Exemplo aqui</p>
+      </div>
+
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+        <div id="rep-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+      </div>
+      <audio id="rep-beat-audio" loop playsinline></audio>
+
+      <div class="arena-word-display" style="text-align:center; margin-top:20px;">
+        <span style="font-size:0.7rem; color:#6b7280; font-weight:700;">RIME SOBRE ESSE CONCEITO:</span>
+        <div id="rep-current-word" style="font-size:2.2rem; font-weight:800; color:white; margin:10px 0;">DEMAGOGIA</div>
+        <p id="rep-hint" style="font-size:0.85rem; color:#9ca3af;">Desenvolva o que você entendeu rimando!</p>
+        <div id="rep-countdown" style="font-family:var(--font-mono); font-size:2rem; font-weight:700; color:white; margin-top:10px;">30</div>
+      </div>
+
+      <div style="margin-top:auto; display:flex; gap:10px;">
+        <button class="btn btn-secondary" style="flex:1;" onclick="nextConcept()">Outro conceito</button>
+        <button class="btn btn-primary" style="flex:1; background:#FBBF24; color:black;" onclick="closeRepertoireSession()">Finalizar</button>
+      </div>
+    </div>
+
+
+
+    <!-- OVERLAY: FMS - PERGUNTA E RESPOSTA -->
+<div id="fms-arena" class="session-arena">
+  <div class="arena-header">
+    <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeFMSSession()">
+      <i data-lucide="x" style="width: 18px;"></i> Sair
+    </button>
+    <span class="tag" style="background: rgba(168, 85, 247, 0.15); color: #A855F7;">FMS - ATAQUE E RESPOSTA</span>
+    <div id="fms-timer" style="font-family:var(--font-mono); font-weight:800; color:#A855F7; font-size:1.5rem;">15</div>
+  </div>
+
+  <div style="background:var(--bg-card); border:1px solid rgba(168, 85, 247, 0.3); border-radius:16px; padding:16px; margin-top:16px; text-align:center;">
+    <span id="fms-top-label" style="font-size:0.7rem; color:#6b7280; font-weight:700;">O SITE PERGUNTA:</span>
+    <div id="fms-question" style="font-size:1.3rem; font-weight:800; color:white; margin-top:8px; line-height:1.3;">Prepare-se para responder as perguntas em...</div>
+  </div>
+
+  <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+    <div id="fms-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+  </div>
+  <audio id="fms-beat-audio" loop playsinline></audio>
+
+  <div class="arena-word-display" style="text-align:center; margin-top:30px;">
+    <span id="fms-middle-label" style="font-size:0.7rem; color:#6b7280; font-weight:700;">RESPONDA RIMANDO:</span>
+    <div id="fms-current" style="font-size:2.2rem; font-weight:800; color:white; margin:10px 0;">PREPARE-SE</div>
+    <div id="fms-countdown" style="font-family:var(--font-mono); font-size:3rem; font-weight:700; color:#A855F7; margin-top:10px;">15</div>
+  </div>
+
+  <div style="margin-top:auto; text-align:center;">
+    <p style="font-size:0.75rem; color:#6b7280;">Não tem como pular. Na batalha real também não tem.</p>
+  </div>
+</div>
+
+
+
+
+
+        <!-- OVERLAY: ESCOLA DA RIMA -->
+    <div id="escola-arena" class="session-arena" style="padding:20px;">
+      <div class="arena-header">
+        <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="closeEscolaRima()">
+          <i data-lucide="x" style="width:18px;"></i> Voltar
+        </button>
+        <span class="tag" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24;">ESCOLA DA RIMA</span>
+        <div style="width:34px;"></div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <h2 style="font-size:1.4rem; font-weight:800;">O que você quer aprender?</h2>
+        <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px;">Toque em um tema e estude em 30 segundos.</p>
+      </div>
+
+      <div id="escola-lista" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px;">
+        <!-- OS CARDS SERÃO GERADOS PELO JS -->
+      </div>
+
+      <!-- CARD DA AULA ABERTA -->
+      <div id="escola-aula" style="display:none; background:var(--bg-card); border:1px solid rgba(251, 191, 36, 0.3); border-radius:16px; padding:20px; margin-top:20px;">
+        <span id="escola-aula-tag" class="tag" style="background:rgba(251,191,36,0.15); color:#FBBF24; margin-bottom:10px;">PUNCHLINE</span>
+        <h3 id="escola-aula-titulo" style="font-size:1.3rem; font-weight:800; margin-bottom:8px;">O que é Punchline?</h3>
+        <p id="escola-aula-def" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">Definição aqui</p>
+        <div style="background:var(--bg-surface); border-radius:12px; padding:12px; border-left:3px solid #FBBF24;">
+          <p style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">EXEMPLO DE RUA:</p>
+          <p id="escola-aula-exemplo" style="font-size:0.85rem; color:var(--text-primary); font-style:italic; margin-top:4px;">"Exemplo de rima"</p>
+        </div>
+        <button class="btn btn-secondary" style="margin-top:16px;" onclick="voltarListaEscola()">Voltar para lista</button>
+      </div>
+    </div>
+
+
+
+    
+
+
+        <!-- OVERLAY: MODO CENA - O QUE VOCÊ VÊ? -->
+    <div id="scene-arena" class="session-arena">
+      <div class="arena-header">
+        <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeSceneSession()">
+          <i data-lucide="x" style="width: 18px;"></i> Sair
+        </button>
+        <span class="tag" style="background: rgba(34, 197, 94, 0.15); color: #22C55E;">MODO CENA</span>
+        <div id="scene-timer" style="font-family:var(--font-mono); font-weight:800; color:#22C55E; font-size:1.5rem;">15</div>
+      </div>
+
+      <div style="background:var(--bg-card); border:1px solid rgba(34, 197, 94, 0.3); border-radius:16px; padding:12px; margin-top:16px; text-align:center;">
+        <div id="scene-img-box" style="width:100%; height:200px; border-radius:12px; background:#111; background-size:cover; background-position:center; margin-bottom:12px;"></div>
+        <span style="font-size:0.7rem; color:#6b7280; font-weight:700;">CENA:</span>
+        <div id="scene-name" style="font-size:1.2rem; font-weight:800; color:white; margin-top:4px;">Prepare-se para ver a cena em...</div>
+        <div id="scene-hint" style="font-size:0.85rem; color:#9ca3af; margin-top:4px;">Olhe bem. Você vai ter que contar essa história rimando.</div>
+      </div>
+
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+        <div id="scene-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+      </div>
+      <audio id="scene-beat-audio" loop playsinline></audio>
+
+      <div class="arena-word-display" style="text-align:center; margin-top:20px;">
+        <div id="scene-current" style="font-size:2.2rem; font-weight:800; color:#22C55E; margin:10px 0;">PREPARE-SE</div>
+        <div id="scene-countdown" style="font-family:var(--font-mono); font-size:3rem; font-weight:700; color:#22C55E; margin-top:10px;">15</div>
+      </div>
     </div>
 
     <!-- OVERLAY: MATCHMAKING SCREEN -->
@@ -1931,21 +2065,57 @@
       "Soberania", "Legado", "Frequência", "Impacto", "Dinastia"
     ];
 
+
+
+
+    const conceptsData = {
+  "politica": [
+    { word: "DEMAGOGIA", def: "Quando o político promete o que o povo quer ouvir, mesmo sabendo que não vai cumprir.", example: "Ex: Prometer picanha todo dia sabendo que não tem dinheiro pra isso." },
+    { word: "POPULISMO", def: "Estratégia de se aproximar do povo pra ganhar voto, fingindo ser igual a ele.", example: "Ex: Ir pra favela e falar gíria só na época de eleição." },
+    { word: "MERITOCRACIA", def: "Ideia de que quem se esforça mais, vence. Esconde que nem todo mundo começa do mesmo lugar.", example: "Ex: Falar que pobre é pobre porque não trabalha." },
+    { word: "CLIENTELISMO", def: "Troca de favores por voto. Te dou um saco de cimento, você me dá seu voto.", example: "" }
+  ],
+  "sociedade": [
+    { word: "ALIENAÇÃO", def: "Quando você vive uma realidade que foi criada pra você não pensar.", example: "Ex: Trabalhar 12h e achar normal." },
+    { word: "DESIGUALDADE", def: "Diferença brutal de oportunidades entre quem nasce na periferia e no centro.", example: "" }
+  ]
+};
+    
+
     const beatsList = [
-      { name: "Boombap 90 - Clássico", style: "BPM 90 • Flow raiz", url: "beat1.mp3" },
-      { name: "Trap 140 - Agressivo", style: "BPM 140 • Ataque rápido", url: "https://cdn.pixabay.com/audio/2024/08/02/audio_65a508e136.mp3" },
-      { name: "Drill 142 - Sombrio", style: "BPM 142 • Punchlines", url: "https://cdn.pixabay.com/audio/2022/08/06/audio_63d3a6d3b3.mp3" },
-      { name: "Lo-fi 85 - Criativo", style: "BPM 85 • Repertório", url: "https://cdn.pixabay.com/audio/2022/03/10/audio_1b8a2c0a88.mp3" },
-      { name: "Funk 130 - Mandelão", style: "BPM 130 • Velocidade", url: "https://cdn.pixabay.com/audio/2022/06/07/audio_b9bd4170e8.mp3" }
+      { name: "Dias Nublados'' Beat Boom Bap Sujo Type Beat Pecaos x Sintese Base de Rap Boom Bap Beat - HXTEL BEATS", style: "BPM 90 • Flow raiz", url: "https://videotourl.com/audio/1789054147314-3e9fad4f-6206-4e15-8125-d0d11822aac0.mp3" },
+      { name: "Recayd Mob - Mlks de SP INSTRUMENTAL - Layrtxn", style: "BPM 140 • Ataque rápido", url: "https://videotourl.com/audio/1789054296528-63d3d0eb-69fd-418d-b089-e406dcaf951f.mp3" },
+      { name: "Recayd Mob - Plaqtudum (Instrumental) - scott beatz", style: "BPM 142 • Punchlines", url: "https://videotourl.com/audio/1789072879156-df1db6c5-9d85-4cde-8529-ff98a27ec95c.mp3" },
+      { name: "Boom Bap Instrumental x Joey Bada x Alchemist Type Beat 2024 Vertigo (prod. solaris) - Vault", style: "BPM 85 • Repertório", url: "https://videotourl.com/audio/1789073017664-e6ba36d5-a53a-4d3d-9cf2-32236b48f2a7.mp3" },
+      { name: "TRAP TYPE BEAT - DANGER FREESTYLE BEAT HARD TYPE BEAT FREE RAP INSTRUMENTAL 2026 - theskybeats", style: "BPM 130 • Velocidade", url: "https://videotourl.com/audio/1789073095236-699d5b83-8d9f-4cf8-98fa-063e866e298a.mp3" }
     ];
     let currentBeatIndex = 0;
 
     let timerInterval = null;
-    let currentTimerValue = 5;
-    let isPaused = false;
+let wordInterval = null;
+let prepareInterval = null;
+let timeLeft = 60;
+let prepareTimeLeft = 15;
+let wordChangeSpeed = 5;
+let isPaused = false;
 
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    function changeWordSpeed(speed) {
+  wordChangeSpeed = speed;
+  document.querySelectorAll('.speed-btn').forEach(btn => {
+    const ativo = parseInt(btn.dataset.speed) === speed;
+    btn.style.background = ativo ? 'var(--accent-purple-glow)' : 'transparent';
+    btn.style.borderColor = ativo ? 'var(--border-active)' : 'var(--border-color)';
+    btn.style.color = ativo ? 'var(--accent-purple-bright)' : 'var(--text-secondary)';
+  });
+  if (wordInterval) {
+    clearInterval(wordInterval);
+    wordInterval = setInterval(nextWord, wordChangeSpeed * 1000);
+  }
+    }
 
 
 
@@ -2041,14 +2211,62 @@ function closeRhymexModal() {
 
     
     // --- FREESTYLE PRACTICE ENGINE ---
+
     function startFreestyleSession(modeTitle) {
-      document.getElementById('session-mode-tag').innerText = modeTitle.toUpperCase();
-      document.getElementById('session-arena').classList.add('active');
-      currentBeatIndex = Math.floor(Math.random() * beatsList.length);
-      playBeat(currentBeatIndex);
-      nextWord();
-      startTimer();
+  document.getElementById('session-mode-tag').innerText = modeTitle.toUpperCase();
+  document.getElementById('session-arena').classList.add('active');
+  currentBeatIndex = Math.floor(Math.random() * beatsList.length);
+  playBeat(currentBeatIndex);
+  
+  const wordEl = document.getElementById('current-word');
+  const timerEl = document.getElementById('session-timer');
+  const hintEl = document.getElementById('word-hint');
+  const timerLabel = document.getElementById('timer-label');
+
+  prepareTimeLeft = 15;
+  isPaused = false;
+
+  wordEl.innerText = "PREPARE-SE";
+  // DEIXA VERMELHO
+  wordEl.style.background = "none";
+  wordEl.style.webkitBackgroundClip = "unset";
+  wordEl.style.webkitTextFillColor = "#EF4444";
+  wordEl.style.color = "#EF4444";
+
+  hintEl.innerText = "Ajusta o fone, o drop vem em 15s";
+  timerEl.innerText = prepareTimeLeft;
+  if(timerLabel) timerLabel.innerText = "o drop vem em...";
+
+  // ESCONDE O "SUA PALAVRA É:" E O BOTÃO
+  document.getElementById('label-sua-palavra').style.display = "none";
+  document.getElementById('btn-next-word').style.display = "none";
+
+  clearInterval(prepareInterval);
+  prepareInterval = setInterval(() => {
+    if(isPaused) return;
+    prepareTimeLeft--;
+    timerEl.innerText = prepareTimeLeft;
+    wordEl.innerText = prepareTimeLeft > 3 ? "PREPARE-SE" : prepareTimeLeft;
+    if(prepareTimeLeft <= 0) {
+      clearInterval(prepareInterval);
+      startRealTraining();
     }
+  }, 1000);
+    }
+
+function startRealTraining(){
+  document.getElementById('label-sua-palavra').style.display = "block";
+  document.getElementById('btn-next-word').style.display = "flex";
+  document.getElementById('timer-label').innerText = "próxima palavra em segundos";
+
+  nextWord();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  // treino infinito - só fecha quando clicar em Sair
+}
 
     function playBeat(index) {
       const beat = beatsList[index];
@@ -2077,6 +2295,9 @@ function closeRhymexModal() {
 
         function closeFreestyleSession() {
       clearInterval(timerInterval);
+                clearInterval(wordInterval);
+      clearInterval(prepareInterval);
+          clearInterval(wordCountdownInterval);
       document.getElementById('session-arena').classList.remove('active');
       const audio = document.getElementById('beat-audio');
       if (audio) {
@@ -2085,33 +2306,400 @@ function closeRhymexModal() {
       }
         }
 
-    function nextWord() {
-      const wordElement = document.getElementById('current-word');
-      const randomWord = vocabularyList[Math.floor(Math.random() * vocabularyList.length)];
-      
-      // Reset animation
-      wordElement.style.animation = 'none';
-      wordElement.offsetHeight; // trigger reflow
-      wordElement.style.animation = 'wordPulse 0.4s ease';
-      
-      wordElement.innerText = randomWord;
-      currentTimerValue = 5;
-      document.getElementById('session-timer').innerText = '05';
+
+
+        // ===== MODO 2 - DETETIVE DE CONCEITO =====
+    let repTimerInterval = null;
+    let repTimeLeft = 30;
+    let currentRepTopic = "politica";
+    let currentConceptIndex = 0;
+    let repPrepareInterval = null;
+
+    
+    function startRepertoireTraining(topic) {
+      currentRepTopic = topic || "politica";
+      currentConceptIndex = 0;
+      document.getElementById('repertoire-arena').classList.add('active');
+      const beat = beatsList[Math.floor(Math.random() * beatsList.length)];
+      document.getElementById('rep-beat-name').innerText = beat.name;
+      const audio = document.getElementById('rep-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+
+      // Pega o conceito AGORA pra já mostrar no prepare
+      const list = conceptsData[currentRepTopic] || conceptsData["politica"];
+      const concept = list[currentConceptIndex % list.length];
+
+      let prepare = 15;
+      clearInterval(repTimerInterval);
+      clearInterval(repPrepareInterval);
+
+      // CARD DE CIMA JÁ MOSTRA A PALAVRA - NÃO MOSTRA PREPARE-SE
+      document.getElementById('concept-word').innerText = concept.word;
+      document.getElementById('concept-word').style.color = "#FBBF24";
+      document.getElementById('concept-def').innerText = concept.def;
+      document.getElementById('concept-example').innerText = concept.example;
+
+      document.getElementById('rep-current-word').innerText = "PREPARE-SE";
+      document.getElementById('rep-current-word').style.color = "#EF4444";
+      document.getElementById('rep-countdown').innerText = prepare;
+      document.getElementById('rep-countdown').style.display = "block";
+      document.getElementById('rep-countdown').style.color = "white";
+      document.getElementById('repertoire-timer').innerText = prepare;
+
+      repPrepareInterval = setInterval(()=>{
+        prepare--;
+        document.getElementById('repertoire-timer').innerText = prepare;
+        document.getElementById('rep-current-word').innerText = prepare > 3? "PREPARE-SE" : prepare;
+
+        const countdownEl = document.getElementById('rep-countdown');
+        if(prepare <= 3){
+          countdownEl.style.display = "none";
+        } else {
+          countdownEl.style.display = "block";
+          countdownEl.innerText = prepare;
+        }
+
+        if(prepare <= 0){
+          clearInterval(repPrepareInterval);
+          document.getElementById('rep-countdown').style.display = "block";
+          document.getElementById('concept-word').style.color = "#FBBF24";
+          document.getElementById('rep-current-word').style.color = "white";
+          document.getElementById('rep-current-word').innerText = concept.word;
+          document.getElementById('rep-countdown').style.color = "white";
+          showConcept();
+          startRepTimer();
+        }
+      }, 1000);
+      lucide.createIcons();
     }
 
-    function startTimer() {
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        if (isPaused) return;
-        
-        currentTimerValue--;
-        document.getElementById('session-timer').innerText = currentTimerValue < 10 ? `0${currentTimerValue}` : currentTimerValue;
+    
+    function showConcept() {
+      const list = conceptsData[currentRepTopic] || conceptsData["politica"];
+      const concept = list[currentConceptIndex % list.length];
+      document.getElementById('concept-word').innerText = concept.word;
+      document.getElementById('concept-def').innerText = concept.def;
+      document.getElementById('concept-example').innerText = concept.example;
+      document.getElementById('rep-current-word').innerText = concept.word;
+    }
+    function startRepTimer() {
+      repTimeLeft = 30;
+      clearInterval(repTimerInterval);
+      repTimerInterval = setInterval(() => {
+        repTimeLeft--;
+        document.getElementById('repertoire-timer').innerText = repTimeLeft;
+        document.getElementById('rep-countdown').innerText = repTimeLeft;
+        if(repTimeLeft <= 0) nextConcept();
+      }, 1000);
+    }
+    function nextConcept() {
+      currentConceptIndex++; showConcept(); repTimeLeft = 30;
+    }
 
-        if (currentTimerValue <= 0) {
-          nextWord();
+        function closeRepertoireSession() {
+      clearInterval(repTimerInterval);
+      clearInterval(repPrepareInterval);
+      document.getElementById('repertoire-arena').classList.remove('active');
+      const audio = document.getElementById('rep-beat-audio');
+      if(audio){ audio.pause(); audio.src=''; }
+        }
+
+
+        // ===== MODO 3 - FMS PERGUNTA E RESPOSTA =====
+    const fmsQuestions = [
+      "Você acha que é bom na improvisação?",
+      "Por que você acha que merece ganhar?",
+      "O que você faria se perdesse hoje?",
+      "Você rima por amor ou por dinheiro?",
+      "Qual sua maior fraqueza no freestyle?",
+      "Por que sua rima é melhor que a minha?",
+      "Você tem medo de ser esquecido?",
+      "O que te faz diferente dos outros MCs?",
+      "Você consegue rimar sob pressão?",
+      "Qual foi sua maior derrota?",
+      "Por que você não desiste do rap?",
+      "Você acha que tem flow de verdade?",
+      "O que você tem a dizer sobre seu adversário?",
+      "Como você lida com o hate?",
+      "Você rima pra rua ou pro palco?",
+      "Qual seu maior sonho no hip-hop?",
+      "Por que eu deveria te respeitar?",
+      "Você nasceu pra isso ou tá forçando?",
+      "O que te motiva a continuar rimando?",
+      "Você tá pronto pro meu ataque?"
+    ];
+    let fmsTimerInterval = null;
+    let fmsPrepareInterval = null;
+    let currentFMSIndex = 0;
+
+    function startFMSTraining(){
+      document.getElementById('fms-arena').classList.add('active');
+      currentFMSIndex = Math.floor(Math.random()*fmsQuestions.length);
+      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      document.getElementById('fms-beat-name').innerText = beat.name;
+      const audio = document.getElementById('fms-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+
+            let prepare = 15;
+      clearInterval(fmsTimerInterval);
+      clearInterval(fmsPrepareInterval);
+
+      document.getElementById('fms-question').innerText = "Prepare-se para responder as perguntas em...";
+      document.getElementById('fms-current').innerText = "PREPARE-SE";
+      document.getElementById('fms-current').style.color = "#A855F7";
+      document.getElementById('fms-timer').innerText = prepare;
+      document.getElementById('fms-countdown').innerText = prepare;
+      document.getElementById('fms-countdown').style.display = "block";
+
+            fmsPrepareInterval = setInterval(()=>{
+        prepare--;
+        document.getElementById('fms-timer').innerText = prepare;
+        document.getElementById('fms-current').innerText = prepare > 3? "PREPARE-SE" : prepare;
+
+        const countdownEl = document.getElementById('fms-countdown');
+        if(prepare <= 3){
+          countdownEl.style.display = "none";
+        } else {
+          countdownEl.style.display = "block";
+          countdownEl.innerText = prepare;
+        }
+        if(prepare <= 0){
+          clearInterval(fmsPrepareInterval);
+          document.getElementById('fms-current').style.color = "white";
+          showFMSQuestion();
+          startFMSTimer();
+        }
+      }, 1000);
+      lucide.createIcons();
+    }
+
+    function showFMSQuestion(){
+      const q = fmsQuestions[currentFMSIndex % fmsQuestions.length];
+            document.getElementById('fms-countdown').style.display = "block";
+      document.getElementById('fms-question').innerText = q;
+      document.getElementById('fms-current').innerText = q;
+      document.getElementById('fms-current').style.fontSize = "1.5rem";
+    }
+
+    function startFMSTimer(){
+      let timeLeft = 15;
+      document.getElementById('fms-timer').innerText = timeLeft;
+      document.getElementById('fms-countdown').innerText = timeLeft;
+      document.getElementById('fms-countdown').style.display = "block";
+      clearInterval(fmsTimerInterval);
+      fmsTimerInterval = setInterval(()=>{
+        timeLeft--;
+        document.getElementById('fms-timer').innerText = timeLeft;
+        document.getElementById('fms-countdown').innerText = timeLeft;
+        if(timeLeft <= 0){
+          nextFMSQuestion();
         }
       }, 1000);
     }
+
+    function nextFMSQuestion(){
+      currentFMSIndex++;
+      showFMSQuestion();
+      startFMSTimer();
+    }
+
+    function closeFMSSession(){
+      clearInterval(fmsTimerInterval);
+      clearInterval(fmsPrepareInterval);
+      document.getElementById('fms-arena').classList.remove('active');
+      const audio = document.getElementById('fms-beat-audio');
+      if(audio){ audio.pause(); audio.src=''; }
+    }
+
+
+
+
+            const escolaData = [
+      { id: "rima", titulo: "O que é Rima?", tag: "BASE", def: "Rima é quando o final de duas palavras tem som parecido. Rima rica é quando usa 2 palavras. Ex: 'Sua mente trava / Meu verso te crava'", exemplo: "\"Eu rimo com alma, cê rima com pose, sua rima é fraca, a minha é overdose\"", video: "", audio: "" },
+      { id: "metrica", titulo: "Métrica e Flow", tag: "FLOW", def: "Métrica é não atropelar o beat. Você tem que encaixar suas palavras no tempo da batida. Se correr, perde o flow.", exemplo: "\"Não é só falar rápido, é falar no tempo certo, no grave do bumbo\"", video: "", audio: "" },
+      { id: "punchline", titulo: "Punchline", tag: "ATAQUE", def: "É a frase final que dá a porrada. É o que faz a plateia gritar. Todo verso tem que terminar com punch.", exemplo: "\"Cê fala de rua mas nunca dormiu na rua, fala de luta mas nunca perdeu na luta\"", video: "", audio: "" },
+      { id: "carteirada", titulo: "Carteirada", tag: "IDEOLOGIA", def: "Quando você ganha sem atacar o adversário, só mostrando conhecimento e ideologia. É o que separa MC de MC completo.", exemplo: "\"Enquanto cê fala de mim, eu falo do sistema que te oprime e você nem vê\"", video: "", audio: "" },
+      { id: "dobrar", titulo: "Dobrar o Flow", tag: "TÉCNICA", def: "Dobrar é acelerar no meio do verso pra mostrar técnica. Usa no final do round pra impressionar.", exemplo: "\"Tic tac tic tac no beat eu acelero, sua mente trava eu libero\"", video: "", audio: "audios/dobra-exemplo.mp3" },
+      { id: "resposta", titulo: "Resposta", tag: "FMS", def: "Na FMS você precisa responder o que o cara falou. Se ele te pergunta, você não pode ignorar. Tem que rebater na hora.", exemplo: "\"Cê perguntou da minha quebrada? Minha quebrada é o Brasil que você nunca pisou\"", video: "", audio: "" }
+    ];
+    
+
+
+        // ===== MODO 4 - CENA / OBJETOS =====
+    // AQUI VOCÊ EDITA AS IMAGENS - SÓ TROCAR O LINK
+    const sceneData = [
+      { img: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=600", scene: "Beco de São Paulo à noite", hint: "o que acontece aqui?" },
+      { img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600", scene: "Um microfone no palco vazio", hint: "quem vai subir aqui?" },
+      { img: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600", scene: "Prédios e fumaça", hint: "cidade grande, vida louca" },
+      { img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600", scene: "Uma chave enferrujada", hint: "que porta ela abre?" },
+      { img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600", scene: "Favela vista de cima", hint: "muita história aqui" }
+    ];
+    let sceneTimerInterval = null;
+    let scenePrepareInterval = null;
+    let currentSceneIndex = 0;
+
+
+
+        function openEscolaRima(){
+      document.getElementById('escola-arena').classList.add('active');
+      const lista = document.getElementById('escola-lista');
+      lista.innerHTML = '';
+      document.getElementById('escola-aula').style.display = 'none';
+      lista.style.display = 'grid';
+      escolaData.forEach(item => {
+        lista.innerHTML += `
+          <div class="skill-card" onclick="abrirAulaEscola('${item.id}')" style="border-color: rgba(251, 191, 36, 0.15);">
+            <div class="skill-icon" style="background: rgba(251, 191, 36, 0.1); color: #FBBF24;"><i data-lucide="book-open"></i></div>
+            <div class="skill-title" style="font-size:0.85rem;">${item.titulo}</div>
+            <div class="skill-desc">${item.tag}</div>
+          </div>
+        `;
+      });
+      lucide.createIcons();
+    }
+    function closeEscolaRima(){
+      document.getElementById('escola-arena').classList.remove('active');
+    }
+    function abrirAulaEscola(id){
+      const aula = escolaData.find(a => a.id === id);
+      document.getElementById('escola-lista').style.display = 'none';
+      document.getElementById('escola-aula').style.display = 'block';
+      document.getElementById('escola-aula-tag').innerText = aula.tag;
+      document.getElementById('escola-aula-titulo').innerText = aula.titulo;
+      document.getElementById('escola-aula-def').innerText = aula.def;
+      document.getElementById('escola-aula-exemplo').innerText = aula.exemplo;
+    }
+    function voltarListaEscola(){
+      document.getElementById('escola-aula').style.display = 'none';
+      document.getElementById('escola-lista').style.display = 'grid';
+        }
+
+    function startSceneTraining(){
+      document.getElementById('scene-arena').classList.add('active');
+      currentSceneIndex = Math.floor(Math.random()*sceneData.length);
+      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      document.getElementById('scene-beat-name').innerText = beat.name;
+      const audio = document.getElementById('scene-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+
+      let prepare = 15;
+      clearInterval(sceneTimerInterval);
+      clearInterval(scenePrepareInterval);
+
+      document.getElementById('scene-name').innerText = "Prepare-se para ver a cena em...";
+      document.getElementById('scene-img-box').style.backgroundImage = "none";
+      document.getElementById('scene-img-box').style.backgroundColor = "#111";
+      document.getElementById('scene-hint').innerText = "Olhe bem. Você vai ter que contar essa história rimando.";
+      document.getElementById('scene-current').innerText = "PREPARE-SE";
+      document.getElementById('scene-current').style.color = "#22C55E";
+      document.getElementById('scene-timer').innerText = prepare;
+      document.getElementById('scene-countdown').innerText = prepare;
+      document.getElementById('scene-countdown').style.display = "block";
+
+      scenePrepareInterval = setInterval(()=>{
+        prepare--;
+        document.getElementById('scene-timer').innerText = prepare;
+        document.getElementById('scene-current').innerText = prepare > 3? "PREPARE-SE" : prepare;
+        const countdownEl = document.getElementById('scene-countdown');
+        if(prepare <= 3){
+          countdownEl.style.display = "none";
+        } else {
+          countdownEl.style.display = "block";
+          countdownEl.innerText = prepare;
+        }
+        if(prepare <= 0){
+          clearInterval(scenePrepareInterval);
+          document.getElementById('scene-current').style.color = "white";
+          showScene();
+          startSceneTimer();
+        }
+      }, 1000);
+      lucide.createIcons();
+    }
+
+    function showScene(){
+      const data = sceneData[currentSceneIndex % sceneData.length];
+      document.getElementById('scene-img-box').style.backgroundImage = `url('${data.img}')`;
+      document.getElementById('scene-name').innerText = data.scene;
+      document.getElementById('scene-hint').innerText = data.hint;
+      document.getElementById('scene-current').innerText = data.scene;
+      document.getElementById('scene-current').style.fontSize = "1.3rem";
+      document.getElementById('scene-countdown').style.display = "block";
+    }
+
+    function startSceneTimer(){
+      let timeLeft = 30;
+      document.getElementById('scene-timer').innerText = timeLeft;
+      document.getElementById('scene-countdown').innerText = timeLeft;
+      clearInterval(sceneTimerInterval);
+      sceneTimerInterval = setInterval(()=>{
+        timeLeft--;
+        document.getElementById('scene-timer').innerText = timeLeft;
+        document.getElementById('scene-countdown').innerText = timeLeft;
+        if(timeLeft <= 0){
+          nextScene();
+        }
+      }, 1000);
+    }
+
+    function nextScene(){
+      currentSceneIndex++;
+      showScene();
+      startSceneTimer();
+    }
+
+    function closeSceneSession(){
+      clearInterval(sceneTimerInterval);
+      clearInterval(scenePrepareInterval);
+      document.getElementById('scene-arena').classList.remove('active');
+      const audio = document.getElementById('scene-beat-audio');
+      if(audio){ audio.pause(); audio.src=''; }
+    }
+
+    
+    
+
+    let wordCountdown = 5;
+let wordCountdownInterval = null;
+
+function nextWord() {
+  const wordEl = document.getElementById('current-word');
+  const hintEl = document.getElementById('word-hint');
+  const timerEl = document.getElementById('session-timer');
+  
+  if(!wordEl) return;
+  
+  const randomWord = vocabularyList[Math.floor(Math.random()*vocabularyList.length)];
+
+  // VOLTA A COR NORMAL (DEGRADE)
+  wordEl.style.background = "linear-gradient(180deg, #FFFFFF 0%, #A855F7 100%)";
+  wordEl.style.webkitBackgroundClip = "text";
+  wordEl.style.webkitTextFillColor = "transparent";
+
+  wordEl.style.animation='none'; 
+  wordEl.offsetHeight; 
+  wordEl.style.animation='wordPulse 0.4s ease';
+  wordEl.innerText = randomWord;
+  
+  if(hintEl) hintEl.innerText = `Rime com "${randomWord}"`;
+  
+  wordCountdown = wordChangeSpeed;
+  if(timerEl) timerEl.innerText = wordCountdown;
+  
+  clearInterval(wordCountdownInterval);
+  wordCountdownInterval = setInterval(() => {
+    if(isPaused) return;
+    wordCountdown--;
+    if(timerEl) timerEl.innerText = wordCountdown;
+    if(wordCountdown <= 0) {
+      clearInterval(wordCountdownInterval);
+      nextWord();
+    }
+  }, 1000);
+}
+
+
+    
 
     function togglePauseSession() {
       isPaused = !isPaused;
