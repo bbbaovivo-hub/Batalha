@@ -3242,11 +3242,22 @@ setPersistence(auth, browserLocalPersistence)
         }
       });
 
-      // ===== 3. SISTEMA ÚNICO DE PRESENÇA (LOGADO OU NÃO = 1 SÓ) =====
+            // ===== 3. PRESENÇA + CONTAGEM DE CONTAS - CORRIGIDO =====
+      // Grava usuário SEMPRE, separado da presença
       try {
-        // Apaga o visitante anonimo que foi criado ao abrir o site
-        try { await remove(anonPresenceRef); } catch(e){}
+        await set(ref(db, `users/${user.uid}`), {
+          uid: user.uid,
+          name: user.displayName || 'MC',
+          email: user.email.toLowerCase(),
+          createdAt: Date.now()
+        });
+        console.log("✅ USER GRAVADO PRA CONTAGEM");
+      } catch(err) {
+        console.error("❌ ERRO AO GRAVAR USER:", err);
+      }
 
+      try {
+        try { await remove(anonPresenceRef); } catch(e){}
         myPresenceRef = ref(db, `presence/${user.uid}`);
         await set(myPresenceRef, {
           uid: user.uid,
@@ -3258,17 +3269,9 @@ setPersistence(auth, browserLocalPersistence)
         });
         onDisconnect(myPresenceRef).remove();
         console.log("✅ PRESENÇA LOGADA GRAVADA");
-
-        await set(ref(db, `users/${user.uid}`), {
-          uid: user.uid,
-          name: user.displayName || 'MC',
-          email: user.email.toLowerCase(),
-          createdAt: Date.now()
-        });
-        console.log("✅ USER GRAVADO");
       } catch(err) {
         console.error("ERRO PRESENÇA:", err);
-      }
+          }
 
       // ===== 4. MOSTRA PERFIL =====
       const profileLogin = document.getElementById('profile-login-required');
