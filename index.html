@@ -1160,6 +1160,24 @@
 </head>
 <body>
 
+
+    <!-- SPLASH SCREEN RHYMEX -->
+  <div id="rhymex-splash" style="position:fixed; inset:0; background:#090A0F; z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; transition:opacity 0.5s ease;">
+    <div style="width:64px; height:64px; background:linear-gradient(135deg, #8B5CF6, #3B0764); border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; box-shadow:0 0 20px rgba(139,92,246,0.4); animation:pulseSplash 1.5s infinite;">
+      <i data-lucide="mic" style="width:28px; height:28px; color:white;"></i>
+    </div>
+    <h1 style="color:white; font-size:1.5rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px;">RHYMEX</h1>
+    <p style="color:#6b7280; font-size:0.8rem; margin-bottom:28px;">Freestyle & Battle Ecosystem</p>
+
+    <div style="width:180px; height:3px; background:#1f1f2a; border-radius:10px; overflow:hidden; margin-bottom:12px;">
+      <div id="splash-progress" style="width:0%; height:100%; background:#A855F7; transition:width 0.4s ease;"></div>
+    </div>
+    <p id="splash-status" style="color:#A855F7; font-size:0.75rem; font-weight:600; letter-spacing:0.5px;">Carregando informações...</p>
+  </div>
+  <style>
+  @keyframes pulseSplash { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+  </style>
+
   <!-- APP VIEWPORT SIMULATOR -->
   <div class="app-viewport">
     
@@ -1193,7 +1211,7 @@
       <!-- 1. HOME VIEW -->
       <section id="view-home" class="page-view active">
         <div class="hero-greeting">
-          <h2>Boa tarde, MC Krono 🎤</h2>
+          <h2>Salve, MC 🎤</h2>
           <p>Pronto para afiar seu flow e dominar as rimas hoje?</p>
         </div>
 
@@ -1278,6 +1296,12 @@
             <div class="skill-title">Modo Cena</div>
             <div class="skill-desc">Rime sobre o que você vê. Objetos e lugares.</div>
                    </div> 
+
+          <div class="skill-card" onclick="startContraAttackTraining()" style="border-color: rgba(239, 68, 68, 0.25);">
+  <div class="skill-icon" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;"><i data-lucide="shield-alert"></i></div>
+  <div class="skill-title">Contra-Ataque</div>
+  <div class="skill-desc">O site te ataca. Você rebate e devolve na lata.</div>
+          </div>
         </div>
 
         <!-- Modes Detail list -->
@@ -1400,25 +1424,15 @@
           </button>
         </div>
 
-        <h3 style="font-size: 1rem; margin: 20px 0 12px 0;">Ao Vivo Agora (Modo Plateia)</h3>
-
-
-
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-            <div style="text-align: center;">
-              <div style="font-weight: 700; font-size: 0.9rem;">MC Jhony</div>
-              <div style="font-size: 0.7rem; color: var(--accent-purple-bright);">🎤 Cantando...</div>
-            </div>
-            <div style="font-family: var(--font-mono); font-weight: 800; color: var(--text-muted);">VS</div>
-            <div style="text-align: center;">
-              <div style="font-weight: 700; font-size: 0.9rem;">MC Dudu</div>
-              <div style="font-size: 0.7rem; color: var(--text-muted);">Aguardando</div>
-            </div>
-          </div>
-
-          <button class="btn btn-secondary" style="padding: 8px; font-size: 0.8rem;">
-            Assistir como Plateia
-          </button>
+          <h3 style="margin-top:28px; font-size:1.1rem; font-weight:700;">Ao Vivo Agora (Modo Plateia)</h3>
+    <div id="plateia-container" style="margin-top:12px;">
+    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:32px 16px; text-align:center;">
+      <div style="width:64px; height:64px; background:rgba(168, 85, 247, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px auto;">
+        <i data-lucide="loader-2" style="width:28px; height:28px; color:#a855f7; animation:spin 1s linear infinite;"></i>
+      </div>
+      <p style="color:#6b7280; font-size:0.9rem;">Procurando batalhas ao vivo...</p>
+    </div>
+    </div>
       </section>
 
       <!-- 6. LEADERBOARD / RANKING VIEW -->
@@ -1553,17 +1567,17 @@
       </p>
     </div>
 
-    <div class="grid-2" style="margin-bottom: 16px;">
+        <div class="grid-2" style="margin-bottom: 16px;">
       <div class="stat-box">
-        <div class="stat-value">87%</div>
-        <div class="stat-label">Taxa de Vitória</div>
+        <div class="stat-value" id="stat-training-time">0min</div>
+        <div class="stat-label">Tempo de Treino</div>
       </div>
 
       <div class="stat-box">
-        <div class="stat-value">12d</div>
-        <div class="stat-label">Maior Sequência</div>
+        <div class="stat-value" id="stat-battles-won">0</div>
+        <div class="stat-label">Batalhas Vencidas</div>
       </div>
-    </div>
+        </div>
 
     <h3 style="font-size: 1rem; margin-bottom: 12px;">
       Conquistas Desbloqueadas
@@ -1590,7 +1604,71 @@
       </div>
 
 
+      
 
+
+
+    </div>
+
+        <h3 style="font-size: 1rem; margin: 24px 0 12px 0;">
+      Sobre o RHYMEX
+    </h3>
+
+    <div class="card" style="background: linear-gradient(135deg, rgba(24, 26, 38, 0.95), rgba(59, 7, 100, 0.15)); border-color: rgba(168, 85, 247, 0.25);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:var(--accent-purple-glow); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--accent-purple-bright);">
+          <i data-lucide="shield-check" style="width:20px;"></i>
+        </div>
+        <div style="font-weight:800; font-size:0.95rem;">Regras da Comunidade</div>
+      </div>
+      <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px;">
+        <li style="font-size:0.8rem; color:var(--text-secondary); display:flex; gap:8px;"><span style="color:var(--accent-purple-bright);">•</span> Proibido hate, racismo ou qualquer tipo de preconceito. Rima é ataque técnico, não pessoal.</li>
+        <li style="font-size:0.8rem; color:var(--text-secondary); display:flex; gap:8px;"><span style="color:var(--accent-purple-bright);">•</span> Respeite o tempo de rima (30s). Não atropelar o beat é fundamental.</li>
+        <li style="font-size:0.8rem; color:var(--text-secondary); display:flex; gap:8px;"><span style="color:var(--accent-purple-bright);">•</span> Sem divulgação de dados pessoais ou spam na batalha por voz.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-color: rgba(251, 191, 36, 0.2);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <div style="width:36px; height:36px; background:rgba(251, 191, 36, 0.1); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#FBBF24;">
+          <i data-lucide="target" style="width:20px;"></i>
+        </div>
+        <div style="font-weight:800; font-size:0.95rem;">Nosso Propósito</div>
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.5;">
+        O RHYMEX nasceu para ser a primeira academia de freestyle do Brasil. Queremos tirar o MC do improviso puro e levar para o estudo técnico, com repertório, métrica e flow. A rua ensina, a gente organiza.
+      </p>
+      <p style="font-size:0.7rem; color:var(--text-muted); margin-top:10px;">v1.0 • Feito por MCs, para MCs 🎤</p>
+    </div>
+
+        <h3 style="font-size: 1rem; margin: 24px 0 12px 0;">
+      Precisa de ajuda?
+    </h3>
+
+    <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(24, 26, 38, 0.9)); border-color: rgba(16, 185, 129, 0.25);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <div style="width:36px; height:36px; background:rgba(16, 185, 129, 0.15); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#10B981;">
+          <i data-lucide="message-circle" style="width:20px;"></i>
+        </div>
+        <div>
+          <div style="font-weight:800; font-size:0.95rem;">Falar com o Suporte</div>
+          <div style="font-size:0.7rem; color:var(--text-muted);">Sugestão, denúncia ou bug?</div>
+        </div>
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.4; margin-bottom:14px;">
+        Me chama direto no WhatsApp. Respondo mais rápido por lá e você me ajuda a melhorar o RHYMEX.
+      </p>
+      <button class="btn" style="background: #25D366; color: white; border: none;" onclick="window.open('https://wa.me/5591987687717?text=Olá! Vim pelo RHYMEX %0A%0AQuero falar sobre: ', '_blank')">
+        <i data-lucide="phone" style="width:18px;"></i> Chamar no WhatsApp
+      </button>
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="btn btn-secondary" style="flex:1; font-size:0.8rem;" onclick="window.open('https://wa.me/5591987687717?text=Olá! Vim pelo RHYMEX %0A%0ATenho uma SUGESTÃO: ', '_blank')">
+          Sugestão
+        </button>
+        <button class="btn btn-secondary" style="flex:1; font-size:0.8rem; border-color: rgba(239, 68, 68, 0.2); color: #EF4444;" onclick="window.open('https://wa.me/5591987687717?text=Olá! Vim pelo RHYMEX %0A%0AQuero fazer uma DENÚNCIA: ', '_blank')">
+          Denúncia
+        </button>
+      </div>
     </div>
 
   </div>
@@ -1788,6 +1866,38 @@
         <div id="scene-countdown" style="font-family:var(--font-mono); font-size:3rem; font-weight:700; color:#22C55E; margin-top:10px;">15</div>
       </div>
     </div>
+
+
+
+
+
+    <!-- OVERLAY: CONTRA-ATAQUE -->
+<div id="contra-arena" class="session-arena">
+  <div class="arena-header">
+    <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeContraSession()">
+      <i data-lucide="x" style="width: 18px;"></i> Sair
+    </button>
+    <span class="tag" style="background: rgba(239, 68, 68, 0.15); color: #EF4444;">CONTRA-ATAQUE</span>
+    <div id="contra-timer" style="font-family:var(--font-mono); font-weight:800; color:#EF4444; font-size:1.5rem;">8</div>
+  </div>
+
+  <div style="background:var(--bg-card); border:1px solid rgba(239, 68, 68, 0.3); border-radius:16px; padding:16px; margin-top:16px; text-align:center;">
+    <span style="font-size:0.7rem; color:#6b7280; font-weight:700;">O SITE TE ATACOU:</span>
+    <div id="contra-attack-text" style="font-size:1.6rem; font-weight:800; color:#EF4444; margin-top:8px; line-height:1.2; text-transform:uppercase;">CÊ É DECORADA!</div>
+  </div>
+
+  <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+    <div id="contra-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+  </div>
+  <audio id="contra-beat-audio" loop playsinline></audio>
+
+  <div class="arena-word-display" style="text-align:center; margin-top:30px;">
+    <span style="font-size:0.7rem; color:#6b7280; font-weight:700;">REBATE AGORA RIMANDO:</span>
+    <div id="contra-current" style="font-size:2rem; font-weight:800; color:white; margin:10px 0; line-height:1.2;">PREPARE-SE</div>
+    <div id="contra-countdown" style="font-family:var(--font-mono); font-size:3.5rem; font-weight:700; color:#EF4444; margin-top:10px;">8</div>
+    <p style="font-size:0.75rem; color:#6b7280; margin-top:8px;">Defende e ataca de volta. Não pode travar.</p>
+  </div>
+</div>
 
     <!-- OVERLAY: MATCHMAKING SCREEN -->
     <div id="matchmaking-overlay" class="matchmaking-overlay">
@@ -2015,6 +2125,25 @@
       </div>
     </div>
 
+
+
+        <!-- TELA DE BUSCA MODO PLATEIA - COLE AQUI -->
+    <div id="plateia-busca-tela" style="display:none; position:fixed; inset:0; background:#0a0a0f; z-index:99999; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
+      <div style="width:80px; height:80px; background:rgba(168,85,247,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:20px; animation:pulsePlateia 1.5s infinite;">
+        <i data-lucide="eye" style="width:36px; height:36px; color:#a855f7;"></i>
+      </div>
+      <h2 style="color:white; font-size:1.4rem; font-weight:800; margin-bottom:8px;">Buscando batalha...</h2>
+      <p style="color:#6b7280; font-size:0.9rem; margin-bottom:24px; text-align:center;">Procurando uma batalha aleatória pra você</p>
+      <div style="width:200px; height:4px; background:#1f1f2a; border-radius:10px; overflow:hidden;">
+        <div id="plateia-progress" style="width:0%; height:100%; background:#a855f7; transition:width 2s ease-in-out;"></div>
+      </div>
+      <p id="plateia-status-text" style="color:#a855f7; font-size:0.8rem; margin-top:12px; font-weight:600;">Conectando ao servidor...</p>
+      <button onclick="fecharBuscaPlateia()" style="margin-top:32px; background:transparent; border:1px solid #2a2a35; color:#6b7280; padding:10px 20px; border-radius:20px; font-size:0.85rem;">Cancelar</button>
+    </div>
+    <style>
+    @keyframes pulsePlateia { 0% { transform:scale(1); } 50% { transform:scale(1.1); } 100% { transform:scale(1); } }
+    </style>
+
     <!-- BOTTOM NAVIGATION BAR -->
     <nav class="app-nav">
       <button class="nav-item active" onclick="switchTab('home')">
@@ -2098,9 +2227,32 @@ let timeLeft = 60;
 let prepareTimeLeft = 15;
 let wordChangeSpeed = 5;
 let isPaused = false;
+        let rhymexSessionStart = 0; // vai guardar quando entrou no treino
 
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+        // --- STATS REAIS DO PERFIL ---
+    function loadRealStats(){
+      const time = parseInt(localStorage.getItem('rhymex_training_seconds') || '0');
+      const wins = parseInt(localStorage.getItem('rhymex_battles_won') || '0');
+      const timeEl = document.getElementById('stat-training-time');
+      const winsEl = document.getElementById('stat-battles-won');
+      if(timeEl){
+        if(time < 60) timeEl.innerText = time + 's';
+        else if(time < 3600) timeEl.innerText = Math.floor(time/60) + 'min';
+        else timeEl.innerText = (time/3600).toFixed(1) + 'h';
+      }
+      if(winsEl) winsEl.innerText = wins;
+    }
+    function addTrainingTime(seconds){
+      let current = parseInt(localStorage.getItem('rhymex_training_seconds') || '0');
+      current += seconds;
+      localStorage.setItem('rhymex_training_seconds', current);
+      loadRealStats();
+    }
+    loadRealStats();
 
 
     function changeWordSpeed(speed) {
@@ -2142,6 +2294,7 @@ function switchTab(tabName) {
     }
 
     if(profileLoading) profileLoading.style.display = 'none';
+        loadRealStats();
 
     if (window.rhymexUser) {
       if(loginRequired) loginRequired.style.display = 'none';
@@ -2213,6 +2366,7 @@ function closeRhymexModal() {
     // --- FREESTYLE PRACTICE ENGINE ---
 
     function startFreestyleSession(modeTitle) {
+        rhymexSessionStart = Date.now();
   document.getElementById('session-mode-tag').innerText = modeTitle.toUpperCase();
   document.getElementById('session-arena').classList.add('active');
   currentBeatIndex = Math.floor(Math.random() * beatsList.length);
@@ -2294,6 +2448,7 @@ function startTimer(){
     }
 
         function closeFreestyleSession() {
+            if(rhymexSessionStart > 0){ const diff = Math.floor((Date.now() - rhymexSessionStart)/1000); if(diff >= 3) addTrainingTime(diff); rhymexSessionStart = 0; }
       clearInterval(timerInterval);
                 clearInterval(wordInterval);
       clearInterval(prepareInterval);
@@ -2307,6 +2462,8 @@ function startTimer(){
         }
 
 
+        
+
 
         // ===== MODO 2 - DETETIVE DE CONCEITO =====
     let repTimerInterval = null;
@@ -2317,6 +2474,7 @@ function startTimer(){
 
     
     function startRepertoireTraining(topic) {
+        rhymexSessionStart = Date.now();
       currentRepTopic = topic || "politica";
       currentConceptIndex = 0;
       document.getElementById('repertoire-arena').classList.add('active');
@@ -2397,6 +2555,7 @@ function startTimer(){
     }
 
         function closeRepertoireSession() {
+          
       clearInterval(repTimerInterval);
       clearInterval(repPrepareInterval);
       document.getElementById('repertoire-arena').classList.remove('active');
@@ -2433,6 +2592,7 @@ function startTimer(){
     let currentFMSIndex = 0;
 
     function startFMSTraining(){
+              rhymexSessionStart = Date.now();
       document.getElementById('fms-arena').classList.add('active');
       currentFMSIndex = Math.floor(Math.random()*fmsQuestions.length);
       const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
@@ -2504,6 +2664,7 @@ function startTimer(){
     }
 
     function closeFMSSession(){
+        if(rhymexSessionStart > 0){ const diff = Math.floor((Date.now() - rhymexSessionStart)/1000); if(diff >= 3) addTrainingTime(diff); rhymexSessionStart = 0; }
       clearInterval(fmsTimerInterval);
       clearInterval(fmsPrepareInterval);
       document.getElementById('fms-arena').classList.remove('active');
@@ -2575,6 +2736,7 @@ function startTimer(){
         }
 
     function startSceneTraining(){
+        rhymexSessionStart = Date.now();
       document.getElementById('scene-arena').classList.add('active');
       currentSceneIndex = Math.floor(Math.random()*sceneData.length);
       const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
@@ -2649,6 +2811,7 @@ function startTimer(){
     }
 
     function closeSceneSession(){
+        if(rhymexSessionStart > 0){ const diff = Math.floor((Date.now() - rhymexSessionStart)/1000); if(diff >= 3) addTrainingTime(diff); rhymexSessionStart = 0; }
       clearInterval(sceneTimerInterval);
       clearInterval(scenePrepareInterval);
       document.getElementById('scene-arena').classList.remove('active');
@@ -2656,6 +2819,162 @@ function startTimer(){
       if(audio){ audio.pause(); audio.src=''; }
     }
 
+
+
+
+
+    // ===== MODO 5 - CONTRA-ATAQUE =====
+    const contraAttacks = [
+      "CÊ É DECORADA!",
+      "SEM FLOW, SÓ GRITA!",
+      "VOCÊ ATROPELOU O BEAT!",
+      "VOLTA PRO SEU QUARTO!",
+      "SEM PLATEIA CÊ NÃO É NADA!",
+      "TUDO QUE CÊ FALA JÁ VI NO TIKTOK!",
+      "JÁ PERDEU, DESISTE!",
+      "CADE A MÉTRICA? SÓ FALA FALANDO!",
+      "TUA RIMA É FRACA!",
+      "CÊ NEM RIMA, SÓ ENROLA!",
+      "ACHOU QUE IA GANHAR PORQUE É FAMOSINHO?",
+      "OLHA TUA CARA DE MEDO, JÁ TRAVOU!",
+      "CÊ TÁ REPETINDO A RIMA DE ONTEM!",
+      "ISSO É BATALHA, NÃO É RECITAL!",
+      "ATÉ MINHA VÓ RIMA MELHOR!",
+      "CÊ É LIXO NA IMPROVISAÇÃO!",
+      "SEM CRIATIVIDADE NENHUMA!",
+      "VAI CHORAR?",
+      "CÊ NÃO AGUENTA A PRESSÃO!",
+      "TUA RIMA NÃO COLA!"
+    ];
+    let contraTimerInterval = null;
+    let contraPrepareInterval = null;
+    let currentContraIndex = 0;
+
+    function startContraAttackTraining(){
+        rhymexSessionStart = Date.now();
+      document.getElementById('contra-arena').classList.add('active');
+      currentContraIndex = Math.floor(Math.random()*contraAttacks.length);
+      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      document.getElementById('contra-beat-name').innerText = beat.name;
+      const audio = document.getElementById('contra-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+
+      let prepare = 15;
+      clearInterval(contraTimerInterval);
+      clearInterval(contraPrepareInterval);
+
+      document.getElementById('contra-attack-text').innerText = "SE PREPARA...";
+      document.getElementById('contra-attack-text').style.color = "#6b7280";
+      document.getElementById('contra-current').innerText = "PREPARE-SE";
+      document.getElementById('contra-current').style.color = "#EF4444";
+      document.getElementById('contra-timer').innerText = prepare;
+      document.getElementById('contra-countdown').innerText = prepare;
+      document.getElementById('contra-countdown').style.display = "block";
+
+      contraPrepareInterval = setInterval(()=>{
+        prepare--;
+        document.getElementById('contra-timer').innerText = prepare;
+        document.getElementById('contra-current').innerText = prepare > 3? "PREPARE-SE" : prepare;
+        const countdownEl = document.getElementById('contra-countdown');
+        if(prepare <= 3){
+          countdownEl.style.display = "none";
+        } else {
+          countdownEl.style.display = "block";
+          countdownEl.innerText = prepare;
+        }
+        if(prepare <= 0){
+          clearInterval(contraPrepareInterval);
+          document.getElementById('contra-current').style.color = "white";
+          document.getElementById('contra-attack-text').style.color = "#EF4444";
+          showContraAttack();
+          startContraTimer();
+        }
+      }, 1000);
+      lucide.createIcons();
+    }
+
+
+        function showContraAttack(){
+      const attack = contraAttacks[currentContraIndex % contraAttacks.length];
+      const attackEl = document.getElementById('contra-attack-text');
+      const currentEl = document.getElementById('contra-current');
+      const countdownEl = document.getElementById('contra-countdown');
+
+      attackEl.innerText = attack;
+      attackEl.style.color = "#EF4444";
+      attackEl.style.animation='none';
+      attackEl.offsetHeight;
+      attackEl.style.animation='wordPulse 0.3s ease';
+
+      // FASE 1 - LEITURA
+      currentEl.innerText = "LEIA E RESPONDA EM:";
+      currentEl.style.fontSize = "1rem";
+      currentEl.style.color = "#9CA3AF";
+      startReadingPhase();
+    }
+
+    function startReadingPhase(){
+      let timeLeft = 5; // TEMPO PRA LER O ATAQUE
+      const timerEl = document.getElementById('contra-timer');
+      const countdownEl = document.getElementById('contra-countdown');
+      const currentEl = document.getElementById('contra-current');
+
+      timerEl.innerText = timeLeft;
+      countdownEl.innerText = timeLeft;
+      countdownEl.style.color = "#9CA3AF";
+      countdownEl.style.display = "block";
+
+      clearInterval(contraTimerInterval);
+      contraTimerInterval = setInterval(()=>{
+        timeLeft--;
+        timerEl.innerText = timeLeft;
+        countdownEl.innerText = timeLeft;
+        if(timeLeft <= 0){
+          clearInterval(contraTimerInterval);
+          startResponsePhase();
+        }
+      }, 1000);
+    }
+
+    function startResponsePhase(){
+      let timeLeft = 20; // TEMPO PRA RIMAR - 20 SEGUNDOS
+      const timerEl = document.getElementById('contra-timer');
+      const countdownEl = document.getElementById('contra-countdown');
+      const currentEl = document.getElementById('contra-current');
+
+      currentEl.innerText = "RIME AGORA!";
+      currentEl.style.fontSize = "2.2rem";
+      currentEl.style.color = "#EF4444";
+      countdownEl.style.color = "#EF4444";
+
+      timerEl.innerText = timeLeft;
+      countdownEl.innerText = timeLeft;
+
+      clearInterval(contraTimerInterval);
+      contraTimerInterval = setInterval(()=>{
+        timeLeft--;
+        timerEl.innerText = timeLeft;
+        countdownEl.innerText = timeLeft;
+        if(timeLeft <= 0){
+          nextContraAttack();
+        }
+      }, 1000);
+    }
+
+    function nextContraAttack(){
+      currentContraIndex++;
+      showContraAttack();
+    }
+
+    function closeContraSession(){
+        if(rhymexSessionStart > 0){ const diff = Math.floor((Date.now() - rhymexSessionStart)/1000); if(diff >= 3) addTrainingTime(diff); rhymexSessionStart = 0; }
+      clearInterval(contraTimerInterval);
+      clearInterval(contraPrepareInterval);
+      document.getElementById('contra-arena').classList.remove('active');
+      const audio = document.getElementById('contra-beat-audio');
+      if(audio){ audio.pause(); audio.src=''; }
+    }
+    
     
     
 
@@ -2783,23 +3102,33 @@ import { getDatabase, ref, push, set, get, onValue, remove, update, onChildAdded
   const auth = getAuth(app);
 const db = getDatabase(app);
 
-  // --- SISTEMA PRA QUEM NÃO LOGOU TAMBÉM CONTAR ---
+// SISTEMA ÚNICO DE PRESENÇA - LOGADO OU NÃO, CONTA 1 SÓ
 let anonId = localStorage.getItem('rhymex_anon_id');
 if (!anonId) {
   anonId = 'anon_' + Math.random().toString(36).substring(2, 9) + Date.now();
   localStorage.setItem('rhymex_anon_id', anonId);
 }
-const anonPresenceRef = ref(db, `presence/${anonId}`);
-set(anonPresenceRef, {
-  anon: true,
-  online: true,
-  lastSeen: Date.now()
-});
-onDisconnect(anonPresenceRef).remove();
-window.addEventListener('beforeunload', () => {
-  try { remove(anonPresenceRef); } catch(e) {}
-});
+let anonPresenceRef = ref(db, `presence/${anonId}`);
+let myPresenceRef = null; // vai ser o uid quando logar
 
+// Função que cria presença de visitante
+async function criarPresencaAnonima() {
+  try {
+    await set(anonPresenceRef, {
+      uid: anonId,
+      name: 'Visitante',
+      email: 'visitante',
+      anon: true,
+      online: true,
+      lastSeen: Date.now()
+    });
+    onDisconnect(anonPresenceRef).remove();
+    console.log("👁️ Visitante online:", anonId);
+  } catch(e){ console.log(e) }
+}
+
+// Cria visitante assim que abre o site
+criarPresencaAnonima();
 // ==========================================
 // RHYMEX — WEBRTC DA BATALHA
 // ==========================================
@@ -2815,6 +3144,46 @@ window.addEventListener('beforeunload', () => {
 window.rhymexUser = null;
 window.rhymexAuthReady = false;
 
+
+  // --- SPLASH SCREEN CONTROLLER ---
+let splashInterval = null;
+const splashTexts = ["Carregando informações...", "Sincronizando batalhas...", "Atualizando dados...", "Quase lá, MC..."];
+let splashTextIndex = 0;
+let splashProgress = 0;
+
+function startSplashLoading(){
+  const bar = document.getElementById('splash-progress');
+  const txt = document.getElementById('splash-status');
+  if(!bar ||!txt) return;
+  splashInterval = setInterval(()=>{
+    splashProgress += Math.random()*15 + 5;
+    if(splashProgress > 90) splashProgress = 90; // trava em 90% até o Firebase responder
+    bar.style.width = splashProgress + '%';
+    if(Math.random() > 0.6){
+      splashTextIndex = (splashTextIndex + 1) % splashTexts.length;
+      txt.innerText = splashTexts[splashTextIndex];
+    }
+  }, 300);
+}
+
+function hideSplashScreen(){
+  const splash = document.getElementById('rhymex-splash');
+  const bar = document.getElementById('splash-progress');
+  const txt = document.getElementById('splash-status');
+  if(!splash) return;
+  if(splashInterval) clearInterval(splashInterval);
+  if(bar) bar.style.width = '100%';
+  if(txt) txt.innerText = 'Pronto! 🎤';
+  setTimeout(()=>{
+    splash.style.opacity = '0';
+    setTimeout(()=> splash.style.display = 'none', 500);
+  }, 400);
+}
+
+startSplashLoading();
+// Esconde a splash assim que o Firebase terminar (ou em 3.5s no máximo)
+setTimeout(hideSplashScreen, 3500);
+
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
     console.log("Sessão do RHYMEX será mantida neste dispositivo.");
@@ -2823,82 +3192,117 @@ setPersistence(auth, browserLocalPersistence)
     console.error("Erro ao configurar persistência:", error);
   });
 
-  onAuthStateChanged(auth, (user) => {
     
+                    
+  
+        
+
+    onAuthStateChanged(auth, async (user) => {
     window.rhymexAuthReady = true;
-window.rhymexUser = user;
-    
+    window.rhymexUser = user;
+
     if (user) {
+      // ===== 1. CHECA SE FOI BANIDO =====
+      try {
+        const safeKey = user.email.toLowerCase().replace(/\./g, ',').replace(/@/g, '_at_');
+        const bannedSnap = await get(ref(db, `bannedEmails/${safeKey}`));
+        if (bannedSnap.exists()) {
+          const modal = document.createElement('div');
+          modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px';
+          modal.innerHTML = `
+            <div style="background:#181A26;border:1px solid rgba(239,68,68,0.4);border-radius:16px;padding:24px;max-width:380px;width:100%;text-align:center">
+              <div style="width:64px;height:64px;background:rgba(239,68,68,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;font-size:32px">🚫</div>
+              <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;color:#EF4444">Conta Banida</h2>
+              <p style="color:#9ca3af;font-size:0.85rem;margin-bottom:16px">Sua conta <b style="color:white">${user.email}</b> foi banida do RHYMEX.</p>
+              <a href="https://wa.me/5591987687717?text=Fui banido no RHYMEX, meu email: ${user.email}" target="_blank" style="display:block;background:#25D366;color:white;padding:12px;border-radius:10px;text-decoration:none;font-weight:800;text-align:center">Falar com Suporte</a>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          await signOut(auth);
+          return;
+        }
+      } catch(e){ console.log("Erro checando ban:", e) }
 
-
-            // --- SISTEMA DE ONLINE REAL ---
-      const myPresenceRef = ref(db, `presence/${user.uid}`);
-      
-      // Quando entrar, marca como online
-      set(myPresenceRef, {
-        uid: user.uid,
-        name: user.displayName || 'MC',
-        online: true,
-        lastSeen: Date.now()
+      // ===== 2. ESCUTA AVISOS DO ADM =====
+      onValue(ref(db, 'announcements'), (snap) => {
+        if (!snap.exists()) return;
+        let ultimo = null;
+        snap.forEach(child => { ultimo = child.val(); ultimo._key = child.key; });
+          if (ultimo &&!localStorage.getItem('aviso_' + ultimo._key)) {
+          if (typeof showRhymexModal === 'function') {
+            showRhymexModal({
+              icon: 'megaphone',
+              title: ultimo.titulo,
+              text: ultimo.texto
+            });
+          } else {
+            alert("📢 " + ultimo.titulo + "\n\n" + ultimo.texto);
+          }
+          localStorage.setItem('aviso_' + ultimo._key, 'visto');
+        }
       });
 
-      // Quando fechar o site, o Firebase remove sozinho
-      onDisconnect(myPresenceRef).remove();
-      
-      
+      // ===== 3. SISTEMA ÚNICO DE PRESENÇA (LOGADO OU NÃO = 1 SÓ) =====
+      try {
+        // Apaga o visitante anonimo que foi criado ao abrir o site
+        try { await remove(anonPresenceRef); } catch(e){}
+
+        myPresenceRef = ref(db, `presence/${user.uid}`);
+        await set(myPresenceRef, {
+          uid: user.uid,
+          name: user.displayName || 'MC',
+          email: user.email.toLowerCase(),
+          anon: false,
+          online: true,
+          lastSeen: Date.now()
+        });
+        onDisconnect(myPresenceRef).remove();
+        console.log("✅ PRESENÇA LOGADA GRAVADA");
+
+        await set(ref(db, `users/${user.uid}`), {
+          uid: user.uid,
+          name: user.displayName || 'MC',
+          email: user.email.toLowerCase(),
+          createdAt: Date.now()
+        });
+        console.log("✅ USER GRAVADO");
+      } catch(err) {
+        console.error("ERRO PRESENÇA:", err);
+      }
+
+      // ===== 4. MOSTRA PERFIL =====
       const profileLogin = document.getElementById('profile-login-required');
-const profileContent = document.getElementById('profile-content');
+      const profileContent = document.getElementById('profile-content');
+      if (profileLogin && profileContent) {
+        profileLogin.style.display = 'none';
+        profileContent.style.display = 'block';
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const profileAvatar = document.getElementById('profile-avatar');
+        if (profileName) profileName.innerText = user.displayName || 'MC';
+        if (profileEmail) profileEmail.innerText = user.email || 'Usuário RHYMEX';
+        if (profileAvatar) {
+          const name = user.displayName || 'MC';
+          const initials = name.split(' ').map(part => part[0]).join('').substring(0, 2).toUpperCase();
+          profileAvatar.innerText = initials;
+        }
+        lucide.createIcons();
+      }
 
-if (profileLogin && profileContent) {
-  profileLogin.style.display = 'none';
-  profileContent.style.display = 'block';
-
-  const profileName = document.getElementById('profile-name');
-  const profileEmail = document.getElementById('profile-email');
-  const profileAvatar = document.getElementById('profile-avatar');
-
-  if (profileName) {
-    profileName.innerText = user.displayName || 'MC';
-  }
-
-  if (profileEmail) {
-    profileEmail.innerText = user.email || 'Usuário RHYMEX';
-  }
-
-  if (profileAvatar) {
-    const name = user.displayName || 'MC';
-
-    const initials = name
-      .split(' ')
-      .map(part => part[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-
-    profileAvatar.innerText = initials;
-  }
-
-  lucide.createIcons();
-}
-
-      console.log("Usuário logado:", user.displayName);
-      console.log("E-mail:", user.email);
-      console.log("UID:", user.uid);
     } else {
+      // ===== DESLOGADO: VOLTA A SER VISITANTE =====
       window.rhymexUser = null;
-      
-      
+      if(myPresenceRef){ try{ await remove(myPresenceRef); }catch(e){} myPresenceRef = null; }
+      criarPresencaAnonima();
+
       const profileLogin = document.getElementById('profile-login-required');
-const profileContent = document.getElementById('profile-content');
-
-if (profileLogin && profileContent) {
-  profileLogin.style.display = 'block';
-  profileContent.style.display = 'none';
-
-  lucide.createIcons();
-}
-
-      console.log("Nenhum usuário logado.");
+      const profileContent = document.getElementById('profile-content');
+      if (profileLogin && profileContent) {
+        profileLogin.style.display = 'block';
+        profileContent.style.display = 'none';
+        lucide.createIcons();
+      }
+      console.log("👁️ Visitante");
     }
   });
 
@@ -3497,34 +3901,44 @@ async function() {
 
    // --- NOVOS CARDS DA HOME ---
 window.watchRandomBattle = function() {
-  const battlesRef = ref(db, 'battles');
-  get(battlesRef).then((snapshot) => {
-    if (!snapshot.exists()) {
-            showRhymexModal({
-        icon: 'eye-off',
-        title: 'Nenhuma batalha ao vivo',
-        text: 'Ninguém está batalhando agora. Seja o primeiro a começar uma batalha e chame a plateia!',
-        actionText: 'Ir pra Arena',
-        actionLink: null
-      });
-      document.getElementById('rhymex-modal-action').onclick = () => { closeRhymexModal(); switchTab('battle'); };
-      document.getElementById('rhymex-modal-action').style.display = 'flex';
-      switchTab('battle');
-      return;
-    }
-    
-    const battles = [];
-    snapshot.forEach(child => {
-      battles.push({ id: child.key, ...child.val() });
+  const tela = document.getElementById('plateia-busca-tela');
+  const barra = document.getElementById('plateia-progress');
+  const texto = document.getElementById('plateia-status-text');
+  tela.style.display = 'flex';
+  if(window.lucide) lucide.createIcons();
+  barra.style.width = '0%';
+  setTimeout(()=>{ barra.style.width = '30%'; texto.innerText = 'Buscando salas ao vivo...'; }, 200);
+  setTimeout(()=>{ barra.style.width = '70%'; texto.innerText = 'Encontrando MCs...'; }, 800);
+  setTimeout(()=>{ barra.style.width = '100%'; texto.innerText = 'Entrando na batalha...'; }, 1500);
+
+  setTimeout(()=>{
+    const battlesRef = ref(db, 'battles');
+    get(battlesRef).then((snapshot) => {
+      if (!snapshot.exists()) {
+        fecharBuscaPlateia();
+        showRhymexModal({
+          icon: 'eye-off',
+          title: 'Nenhuma batalha ao vivo',
+          text: 'Ninguém está batalhando agora. Seja o primeiro a começar uma batalha e chame a plateia!',
+          actionText: 'Ir pra Arena',
+          actionLink: null
+        });
+        document.getElementById('rhymex-modal-action').onclick = () => { closeRhymexModal(); switchTab('battle'); };
+        document.getElementById('rhymex-modal-action').style.display = 'flex';
+        switchTab('battle');
+        return;
+      }
+      fecharBuscaPlateia();
+      document.getElementById('spectator-overlay').classList.add('active');
+      lucide.createIcons();
     });
-    
-    const random = battles[Math.floor(Math.random() * battles.length)];
-    alert(`Entrando como plateia na batalha de ${random.player1?.name || 'MC'} vs ${random.player2?.name || 'MC'}`);
-    
-    document.getElementById('spectator-overlay').classList.add('active');
-    lucide.createIcons();
-  });
+  }, 2200);
 }
+
+window.fecharBuscaPlateia = function(){
+  document.getElementById('plateia-busca-tela').style.display = 'none';
+  document.getElementById('plateia-progress').style.width = '0%';
+  }
 
 window.supportRhymex = function() {
   const pixKey = 'cf350020-39da-42df-a4cc-ec0d60e2b131';
@@ -4199,36 +4613,122 @@ window.saveNewName = async function() {
 
 
 window.logoutRhymex = async function() {
-  
-  const confirmar = confirm("Tem certeza que quer sair do RHYMEX?");
-
-  if (!confirmar) return;
-
-  try {
-    // Se tiver em batalha ou na fila, sai primeiro
-    if (window.leaveVoiceBattle) {
-      await window.leaveVoiceBattle();
+  showRhymexModal({
+    icon: 'log-out',
+    title: 'Sair do RHYMEX?',
+    text: 'Tem certeza que quer sair? Você vai ter que logar de novo pra batalhar.',
+    actionText: 'Sim, sair',
+    actionLink: null
+  });
+  const btn = document.getElementById('rhymex-modal-action');
+  const cancelBtn = document.querySelector('#rhymex-modal-buttons .btn-secondary');
+  btn.style.display = 'flex';
+  btn.innerText = 'Sim, sair';
+  btn.style.background = 'rgba(239, 68, 68, 0.2)';
+  btn.style.color = '#EF4444';
+  btn.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+  if(cancelBtn) cancelBtn.innerText = 'Cancelar';
+  btn.onclick = async () => {
+    closeRhymexModal();
+    try {
+      if (window.leaveVoiceBattle) await window.leaveVoiceBattle();
+      if (window.cancelRealMatchmaking) await window.cancelRealMatchmaking();
+      try { await remove(ref(db, `presence/${auth.currentUser.uid}`)); } catch(e) {}
+      await signOut(auth);
+      window.location.href = 'login.html';
+    } catch (e) {
+      alert("Erro ao sair.");
     }
-    if (window.cancelRealMatchmaking) {
-      await window.cancelRealMatchmaking();
+  };
+}
+
+
+
+
+  // ===== MODO PLATEIA REAL - FIREBASE =====
+function initPlateiaReal(){
+  const container = document.getElementById('plateia-container');
+  if(!container) return;
+
+  // Se não tiver Firebase ainda, já mostra que não tem batalha
+  if(typeof firebase === 'undefined' || !firebase.database){
+    console.log("Firebase ainda não carregou, mostrando vazio");
+    setTimeout(showNenhumaBatalha, 1500);
+    return;
+  }
+
+  const battlesRef = firebase.database().ref('battles');
+
+  // Se demorar mais de 4 segundos, mostra "nenhuma" pra não ficar rodando infinito
+  const timeout = setTimeout(()=>{
+    if(container.innerHTML.includes("Procurando")){
+      showNenhumaBatalha();
     }
+  }, 4000);
 
-        // Sai da contagem de online
-    try { await remove(ref(db, `presence/${auth.currentUser.uid}`)); } catch(e) {}
+  battlesRef.on('value', (snapshot)=>{
+    clearTimeout(timeout); // achou, cancela o timer
+    const battles = snapshot.val();
+    container.innerHTML = "";
+    if(!battles){ showNenhumaBatalha(); return; }
 
-    await signOut(auth);
+    const liveBattles = Object.entries(battles).filter(([id, data])=>{
+      return data.status === 'live' || data.status === 'in_progress' || data.status === 'started';
+    });
 
-    console.log("RHYMEX: usuário deslogado.");
+    if(liveBattles.length === 0){ showNenhumaBatalha(); return; }
 
-    // Manda pro login
-    window.location.href = 'login.html';
+    liveBattles.forEach(([battleId, battle])=>{
+      const mc1 = battle.player1Name || "MC 1";
+      const mc2 = battle.player2Name || "MC 2";
+      const div = document.createElement('div');
+      div.style.cssText = "background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:16px; margin-bottom:12px;";
+      div.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div><div style="font-weight:700;">${mc1}</div><div style="color:#a855f7; font-size:0.8rem;">🎤 Cantando...</div></div>
+          <div style="color:#6b7280; font-weight:800;">VS</div>
+          <div style="text-align:right;"><div style="font-weight:700;">${mc2}</div><div style="color:#6b7280; font-size:0.8rem;">Aguardando</div></div>
+        </div>
+        <button onclick="assistirBatalha('${battleId}')" style="width:100%; background:#2a2a35; border:1px solid var(--border-color); color:white; padding:12px; border-radius:12px; font-weight:600;">Assistir como Plateia</button>
+      `;
+      container.appendChild(div);
+    });
+    if(window.lucide) lucide.createIcons();
+  });
+}
 
-  } catch (error) {
-    console.error("Erro ao sair:", error);
-    alert("Não deu pra sair agora. Tenta de novo.");
+function showNenhumaBatalha(){
+  document.getElementById('plateia-container').innerHTML = `
+    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:32px 16px; text-align:center;">
+      <div style="width:64px; height:64px; background:rgba(168, 85, 247, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px auto;">
+        <i data-lucide="radio" style="width:28px; height:28px; color:#a855f7;"></i>
+      </div>
+      <p style="color:white; font-size:1rem; font-weight:700;">Nenhuma batalha ocorrendo agora</p>
+      <p style="color:#6b7280; font-size:0.8rem; margin-top:6px;">As batalhas ao vivo aparecerão aqui</p>
+    </div>
+  `;
+  if(window.lucide) lucide.createIcons();
+        }
+
+function assistirBatalha(battleId){
+  // Aqui você já tem a lógica de entrar como espectador
+  console.log("Assistindo batalha:", battleId);
+  window.currentBattleId = battleId;
+  window.isSpectator = true;
+  // Chama sua função que já existe pra entrar na arena
+  if(typeof joinBattleAsSpectator === 'function'){
+    joinBattleAsSpectator(battleId);
+  } else {
+    // fallback: entra na arena normal
+    window.location.href = `#battle=${battleId}&spectate=true`;
   }
 }
 
+// INICIA ASSIM QUE CARREGA A ABA BATALHA
+document.addEventListener('DOMContentLoaded', ()=>{
+  // espera 2s pro Firebase conectar
+  setTimeout(initPlateiaReal, 2000);
+});
   
 
 
