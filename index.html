@@ -2078,51 +2078,34 @@
 </div>
 
     <!-- OVERLAY: BATTLE SPECTATOR LIVE -->
-    <div id="spectator-overlay" class="session-arena" style="background: rgba(9, 10, 15, 0.98);">
-      <div class="arena-header">
-        <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);">AO VIVO — ROUND 1/2</span>
-        <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="closeSpectator()">
-          <i data-lucide="x" style="width: 18px;"></i> Sair
-        </button>
+<div id="spectator-overlay" class="session-arena" style="background: rgba(9, 10, 15, 0.98);">
+  <div class="arena-header">
+    <span class="tag" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);">AO VIVO</span>
+    <button class="btn btn-secondary" style="width: auto; padding: 8px 12px;" onclick="window.closeSpectator()">
+      <i data-lucide="x" style="width: 18px;"></i> Sair
+    </button>
+  </div>
+  <div class="battle-vs-container">
+    <div class="mc-profile-card">
+      <div class="avatar-lg" style="border-color: var(--accent-purple-bright);">
+        <span id="spec-mc1-avatar">??</span>
       </div>
-
-      <div class="battle-vs-container">
-        <div class="mc-profile-card">
-          <div class="avatar-lg" style="border-color: var(--accent-purple-bright);">
-            <span>JH</span>
-          </div>
-          <span style="font-size: 0.9rem; font-weight: 700;">MC Jhony</span>
-          <div class="audio-wave">
-            <div class="audio-bar"></div>
-            <div class="audio-bar"></div>
-            <div class="audio-bar"></div>
-          </div>
-        </div>
-
-        <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 800; color: var(--accent-purple-bright);">VS</div>
-
-        <div class="mc-profile-card">
-          <div class="avatar-lg" style="border-color: var(--border-color); opacity: 0.6;">
-            <span>DU</span>
-          </div>
-          <span style="font-size: 0.9rem; font-weight: 700;">MC Dudu</span>
-          <span style="font-size: 0.7rem; color: var(--text-muted);">Aguardando</span>
-        </div>
+      <span id="spec-mc1-name" style="font-size: 0.9rem; font-weight: 700;">Carregando...</span>
+      <div class="audio-wave"><div class="audio-bar"></div><div class="audio-bar"></div></div>
+    </div>
+    <div style="font-family: var(--font-mono); font-size: 1.5rem; font-weight: 800; color: var(--accent-purple-bright);">VS</div>
+    <div class="mc-profile-card">
+      <div class="avatar-lg" style="border-color: var(--border-color);">
+        <span id="spec-mc2-avatar">??</span>
       </div>
-
-      <div style="text-align: center; margin: 20px 0;">
-        <div class="arena-timer" style="font-size: 2.5rem; color: var(--accent-purple-bright);">18s</div>
-        <p style="font-size: 0.8rem; color: var(--text-secondary);">Turno de MC Jhony (Ataque)</p>
-      </div>
-
-      <div style="margin-top: auto;">
-        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-bottom: 10px;">ENVIE SUA REAÇÃO</p>
-        <div style="display: flex; justify-content: center; gap: 12px;">
-          <button class="btn btn-secondary" style="width: auto; padding: 10px 16px;">🔥 142</button>
-          <button class="btn btn-secondary" style="width: auto; padding: 10px 16px;">🎤 98</button>
-          <button class="btn btn-secondary" style="width: auto; padding: 10px 16px;">🤯 210</button>
-        </div>
-      </div>
+      <span id="spec-mc2-name" style="font-size: 0.9rem; font-weight: 700;">Carregando...</span>
+      <div class="audio-wave"><div class="audio-bar"></div><div class="audio-bar"></div></div>
+    </div>
+  </div>
+  <div style="margin-top: auto;">
+    <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-bottom: 10px;">Você está assistindo como plateia (sem microfone)</p>
+  </div>
+</div>
     </div>
 
 
@@ -2212,13 +2195,50 @@
     
 
     const beatsList = [
-      { name: "Dias Nublados'' Beat Boom Bap Sujo Type Beat Pecaos x Sintese Base de Rap Boom Bap Beat - HXTEL BEATS", style: "BPM 90 • Flow raiz", url: "https://videotourl.com/audio/1789054147314-3e9fad4f-6206-4e15-8125-d0d11822aac0.mp3" },
-      { name: "Recayd Mob - Mlks de SP INSTRUMENTAL - Layrtxn", style: "BPM 140 • Ataque rápido", url: "https://videotourl.com/audio/1789054296528-63d3d0eb-69fd-418d-b089-e406dcaf951f.mp3" },
-      { name: "Recayd Mob - Plaqtudum (Instrumental) - scott beatz", style: "BPM 142 • Punchlines", url: "https://videotourl.com/audio/1789072879156-df1db6c5-9d85-4cde-8529-ff98a27ec95c.mp3" },
-      { name: "Boom Bap Instrumental x Joey Bada x Alchemist Type Beat 2024 Vertigo (prod. solaris) - Vault", style: "BPM 85 • Repertório", url: "https://videotourl.com/audio/1789073017664-e6ba36d5-a53a-4d3d-9cf2-32236b48f2a7.mp3" },
-      { name: "TRAP TYPE BEAT - DANGER FREESTYLE BEAT HARD TYPE BEAT FREE RAP INSTRUMENTAL 2026 - theskybeats", style: "BPM 130 • Velocidade", url: "https://videotourl.com/audio/1789073095236-699d5b83-8d9f-4cf8-98fa-063e866e298a.mp3" }
+        { name: "NOME DO BEAT1 ", style: "BPM 90 • Flow raiz", url: "LINK DO BEAT" },
+      
+        { name: "Vida Bandida", style: "Greezy", url: "https://videotourl.com/audio/1789435585968-f05954f9-3131-417c-b6ac-e0eabbb39fa4.mp3" },
+      
+        { name: "Corre Eterno", style: "Bxrgez", url: "https://videotourl.com/audio/1789435521622-90d47bb7-9fdc-4986-9be7-9569b367b874.mp3" },
+      
+        { name: "Mandrake 2.0", style: "DJ Tadela", url: "https://videotourl.com/audio/1789435449124-b20d8e2f-60f8-49bd-ac7c-af1fafe91297.mp3" },
+      
+  { name: "Jerk de Malandro", style: "Greezy", url: "https://videotourl.com/audio/1789435307628-cacf4bf8-990b-450d-b7cb-d288ed72f9ad.mp3" },
+      
+{ name: "XXXTentacion, Ski Mask The Slump God - Take A Step Back ((INSTRUMENTAL))", style: "Gucci Instrumentals 2", url: "https://videotourl.com/audio/1789432718070-389dea1c-b70d-4d34-bf5b-97b6b5585d25.mp3" },
+      
+      
+    { name: "TheCypherDeffect (Instrumental)", style: "Instrumentais de RapBR", url: "https://videotourl.com/audio/1789432584810-599efd80-c49e-4619-97ce-3e467a091ae4.mp3" },
+                       
+      { name: "SABOTAGE CANAO FOI TAO BOM INSTRUMENTAL", style: "Malandragem Records", url: "https://videotourl.com/audio/1789432473883-3fdb3d92-98cf-4f84-bd54-541f28e1065a.mp3" },
+      
+      { name: "Racionais Mc's - Da ponte pra ca instrumental", style: "Diego Conteúdos", url: "https://videotourl.com/audio/1789432354684-7ff1d0f0-2ea1-4325-9561-acb531ff9742.mp3" },
+      
+      { name: "NOME DO BEAT1 ", style: "BPM 90 • Flow raiz", url: "LINK DO BEAT" },
+      
+      { name: "Racionais mcs vida loka parte 2 instrumental", style: "Leandro Ferreira", url: "https://videotourl.com/audio/1789432256510-b0e74fbd-48aa-4304-a04d-48af6327b12b.mp3" },
+      
+      { name: "PRIDE Trap Type Beat Freestyle Beat Type Beat Hard Type Beat Rap Type Beat 2026 ", style: "INNER BEATS", url: "https://videotourl.com/audio/1789432165887-330b17cc-5303-4191-aa76-1472a8165d38.mp3" },
+      
+      { name: "MOP Ante up Instrumental", style: "qetrash", url: "https://videotourl.com/audio/1789432075103-e19e78d0-6266-449e-b574-c1383a88a1fc.mp3" },
+      
+      { name: "Freestyle Rap Beat Hard Boom Bap Type Beat Hip Hop Instrumental", style: "Anabolic Beatz", url: "https://videotourl.com/audio/1789431965520-6892094a-79d1-4b13-a22d-0dc8cd5c6db7.mp3" },
+      
+      { name: "Freestyle - Underground Beat - Hip Hop Rap Instrumental", style: "Tower Beatz", url: "https://videotourl.com/audio/1789431807021-c92baf2a-fa5d-496c-86ba-091d5f204a43.mp3" },
+      
+      { name: "Eminem - Without Me (Instrumental)", style: "A Mix Of Everything", url: "https://videotourl.com/audio/1789431661057-4fe22821-c12f-4291-949d-a99e420ae1c6.mp3" },
+      
+      { name: "Dr Dre- Still Dre instrumental", style: "DanielC", url: "https://videotourl.com/audio/1789431494666-c7121f29-8500-4970-bc56-2fb501c6764b.mp3" },
+      
+      { name: "Dias Nublados'' Beat Boom Bap Sujo Type Beat Pecaos x Sintese Base de Rap Boom Bap Beat", style: "HXTEL BEATS", url: "https://videotourl.com/audio/1789054147314-3e9fad4f-6206-4e15-8125-d0d11822aac0.mp3" },
+      { name: "Recayd Mob - Mlks de SP INSTRUMENTAL", style: "Layrtxn", url: "https://videotourl.com/audio/1789054296528-63d3d0eb-69fd-418d-b089-e406dcaf951f.mp3" },
+      { name: "Recayd Mob - Plaqtudum (Instrumental)", style: "scott beatz", url: "https://videotourl.com/audio/1789072879156-df1db6c5-9d85-4cde-8529-ff98a27ec95c.mp3" },
+      { name: "Boom Bap Instrumental x Joey Bada x Alchemist Type Beat 2024 Vertigo", style: "Vault", url: "https://videotourl.com/audio/1789073017664-e6ba36d5-a53a-4d3d-9cf2-32236b48f2a7.mp3" },
+      { name: "TRAP TYPE BEAT - DANGER FREESTYLE BEAT HARD TYPE BEAT FREE RAP INSTRUMENTAL", style: "theskybeats", url: "https://videotourl.com/audio/1789073095236-699d5b83-8d9f-4cf8-98fa-063e866e298a.mp3" }
     ];
     let currentBeatIndex = 0;
+    let filaDeBeats = [];
+let posicaoNaFila = 0;
 
     let timerInterval = null;
 let wordInterval = null;
@@ -2369,7 +2389,7 @@ function closeRhymexModal() {
         rhymexSessionStart = Date.now();
   document.getElementById('session-mode-tag').innerText = modeTitle.toUpperCase();
   document.getElementById('session-arena').classList.add('active');
-  currentBeatIndex = Math.floor(Math.random() * beatsList.length);
+  currentBeatIndex = pegarProximoBeat();
   playBeat(currentBeatIndex);
   
   const wordEl = document.getElementById('current-word');
@@ -2422,6 +2442,35 @@ function startTimer(){
   // treino infinito - só fecha quando clicar em Sair
 }
 
+
+    function embaralharBeats() {
+  let indices = beatsList.map((_, i) => i);
+  // embaralha
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  // evita repetir na virada: primeiro da nova não pode ser igual ao último da antiga
+  if (filaDeBeats.length > 0) {
+    let ultimoAntigo = filaDeBeats[filaDeBeats.length - 1];
+    if (indices[0] === ultimoAntigo) {
+      // troca o primeiro com o segundo
+      [indices[0], indices[1]] = [indices[1], indices[0]];
+    }
+  }
+  filaDeBeats = indices;
+  posicaoNaFila = 0;
+}
+
+function pegarProximoBeat() {
+  if (filaDeBeats.length === 0 || posicaoNaFila >= filaDeBeats.length) {
+    embaralharBeats();
+  }
+  let beatIndex = filaDeBeats[posicaoNaFila];
+  posicaoNaFila++;
+  return beatIndex;
+}
+
     function playBeat(index) {
       const beat = beatsList[index];
       const audio = document.getElementById('beat-audio');
@@ -2438,13 +2487,8 @@ function startTimer(){
     }
 
     function nextBeat() {
-      let newIndex;
-      do {
-        newIndex = Math.floor(Math.random() * beatsList.length);
-      } while (newIndex === currentBeatIndex && beatsList.length > 1);
-      
-      currentBeatIndex = newIndex;
-      playBeat(currentBeatIndex);
+  currentBeatIndex = pegarProximoBeat();
+  playBeat(currentBeatIndex);
     }
 
         function closeFreestyleSession() {
@@ -2478,7 +2522,7 @@ function startTimer(){
       currentRepTopic = topic || "politica";
       currentConceptIndex = 0;
       document.getElementById('repertoire-arena').classList.add('active');
-      const beat = beatsList[Math.floor(Math.random() * beatsList.length)];
+      const beat = beatsList[pegarProximoBeat()];
       document.getElementById('rep-beat-name').innerText = beat.name;
       const audio = document.getElementById('rep-beat-audio');
       audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
@@ -2595,7 +2639,7 @@ function startTimer(){
               rhymexSessionStart = Date.now();
       document.getElementById('fms-arena').classList.add('active');
       currentFMSIndex = Math.floor(Math.random()*fmsQuestions.length);
-      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      const beat = beatsList[pegarProximoBeat()];
       document.getElementById('fms-beat-name').innerText = beat.name;
       const audio = document.getElementById('fms-beat-audio');
       audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
@@ -2739,7 +2783,7 @@ function startTimer(){
         rhymexSessionStart = Date.now();
       document.getElementById('scene-arena').classList.add('active');
       currentSceneIndex = Math.floor(Math.random()*sceneData.length);
-      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      const beat = beatsList[pegarProximoBeat()];
       document.getElementById('scene-beat-name').innerText = beat.name;
       const audio = document.getElementById('scene-beat-audio');
       audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
@@ -2854,7 +2898,7 @@ function startTimer(){
         rhymexSessionStart = Date.now();
       document.getElementById('contra-arena').classList.add('active');
       currentContraIndex = Math.floor(Math.random()*contraAttacks.length);
-      const beat = beatsList[Math.floor(Math.random()*beatsList.length)];
+      const beat = beatsList[pegarProximoBeat()];
       document.getElementById('contra-beat-name').innerText = beat.name;
       const audio = document.getElementById('contra-beat-audio');
       audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
@@ -3086,7 +3130,7 @@ function startBattleMatchmaking() {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-import { getDatabase, ref, push, set, get, onValue, remove, update, onChildAdded, onDisconnect } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+import { getDatabase, ref, push, set, get, onValue, remove, update, onChildAdded, onDisconnect, runTransaction } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
   const firebaseConfig = {
    apiKey: "AIzaSyA02iDEhuslJ_FgM4hDKzf837sUHLDogk4",
@@ -3532,22 +3576,18 @@ async function createRealBattle(
     battleRef.key;
 
 
-  await set(battleRef, {
-
+    await set(battleRef, {
     player1: {
       uid: user.uid,
       name: user.displayName || "MC"
     },
-
     player2: {
       uid: opponent.uid,
       name: opponent.name || "MC"
     },
-
     status: "waiting",
-
+    spectatorsCount: 0,
     createdAt: Date.now()
-
   });
 
 
@@ -3642,6 +3682,10 @@ async function() {
 
     }
   );
+
+
+    // Se fechar a aba na fila, remove sozinho
+  onDisconnect(matchmakingRef).remove();
 
 
   console.log(
@@ -3903,40 +3947,150 @@ async function() {
 
 
    // --- NOVOS CARDS DA HOME ---
-window.watchRandomBattle = function() {
+window.watchRandomBattle = async function() {
   const tela = document.getElementById('plateia-busca-tela');
   const barra = document.getElementById('plateia-progress');
   const texto = document.getElementById('plateia-status-text');
   tela.style.display = 'flex';
   if(window.lucide) lucide.createIcons();
   barra.style.width = '0%';
+  texto.innerText = 'Conectando ao servidor...';
   setTimeout(()=>{ barra.style.width = '30%'; texto.innerText = 'Buscando salas ao vivo...'; }, 200);
   setTimeout(()=>{ barra.style.width = '70%'; texto.innerText = 'Encontrando MCs...'; }, 800);
   setTimeout(()=>{ barra.style.width = '100%'; texto.innerText = 'Entrando na batalha...'; }, 1500);
 
-  setTimeout(()=>{
-    const battlesRef = ref(db, 'battles');
-    get(battlesRef).then((snapshot) => {
-      if (!snapshot.exists()) {
-        fecharBuscaPlateia();
-        showRhymexModal({
-          icon: 'eye-off',
-          title: 'Nenhuma batalha ao vivo',
-          text: 'Ninguém está batalhando agora. Seja o primeiro a começar uma batalha e chame a plateia!',
-          actionText: 'Ir pra Arena',
-          actionLink: null
-        });
-        document.getElementById('rhymex-modal-action').onclick = () => { closeRhymexModal(); switchTab('battle'); };
-        document.getElementById('rhymex-modal-action').style.display = 'flex';
-        switchTab('battle');
-        return;
-      }
-      fecharBuscaPlateia();
-      document.getElementById('spectator-overlay').classList.add('active');
-      lucide.createIcons();
+  // espera a animação terminar antes de buscar de verdade
+  setTimeout(async ()=>{
+    const snap = await get(ref(db, 'battles'));
+    if(!snap.exists()){
+      window.fecharBuscaPlateia();
+      showRhymexModal({
+        icon: 'eye-off',
+        title: 'Nenhuma batalha ao vivo',
+        text: 'Ninguém está batalhando agora. Que tal ser o primeiro a começar?',
+        actionText: 'Ir pra Arena',
+        actionLink: null
+      });
+      const btn = document.getElementById('rhymex-modal-action');
+      btn.style.display = 'flex';
+      btn.onclick = () => { closeRhymexModal(); switchTab('battle'); };
+      return;
+    }
+    const comVaga = [];
+    snap.forEach(child=>{
+      const d = child.val();
+      if(b.d && b.d.createdAt && (Date.now()-b.d.createdAt > 15*60*1000)) return;
+      if((d.status==='waiting'||d.status==='live') && (d.spectatorsCount||0) < 8) comVaga.push(child.key);
     });
+    if(comVaga.length===0){
+      window.fecharBuscaPlateia();
+      showRhymexModal({
+        icon: 'users',
+        title: 'Todas as batalhas estão cheias',
+        text: 'Todas as batalhas estão cheias no momento, tenta de novo em instantes.',
+        actionText: null,
+        actionLink: null
+      });
+      return;
+    }
+    const sorteada = comVaga[Math.floor(Math.random()*comVaga.length)];
+    await window.joinAsSpectator(sorteada);
   }, 2200);
+};
+
+
+
+
+
+
+let currentSpectatingId = null;
+let spectatorPCs = [];
+
+window.joinAsSpectator = async function(battleId) {
+  currentSpectatingId = battleId;
+  const countRef = ref(db, 'battles/' + battleId + '/spectatorsCount');
+
+  const transResult = await runTransaction(countRef, (atual) => {
+    if (atual === null) atual = 0;
+    if (atual >= 8) return; // aborta
+    return atual + 1;
+  });
+
+  if (!transResult.committed) {
+    alert("Esta batalha está cheia no momento. Tente assistir a outra batalha.");
+    return;
+  }
+
+  const myUid = window.rhymexUser? window.rhymexUser.uid : anonId;
+  const mySpecRef = ref(db, `battles/${battleId}/spectators/${myUid}`);
+  await set(mySpecRef, { joinedAt: Date.now() });
+    onDisconnect(mySpecRef).remove();
+  // O decremento automático via onDisconnect não funciona bem com transaction, 
+  // o closeSpectator já cuida disso. Aqui só garantimos que o nó do espectador suma.
+
+  // Abre overlay e injeta nomes reais
+  const snap = await get(ref(db, 'battles/' + battleId));
+  const b = snap.val();
+  document.getElementById('spec-mc1-name').textContent = b.player1.name;
+  document.getElementById('spec-mc2-name').textContent = b.player2.name;
+  document.getElementById('spec-mc1-avatar').textContent = b.player1.name.substring(0,2).toUpperCase();
+  document.getElementById('spec-mc2-avatar').textContent = b.player2.name.substring(0,2).toUpperCase();
+
+  document.getElementById('plateia-busca-tela').style.display = 'none';
+  document.getElementById('spectator-overlay').classList.add('active');
+  lucide.createIcons();
+
+  connectSpectatorToMC(battleId, b.player1.uid);
+  connectSpectatorToMC(battleId, b.player2.uid);
+};
+
+async function connectSpectatorToMC(battleId, mcUid) {
+  const pc = new RTCPeerConnection(rtcConfig);
+  spectatorPCs.push(pc);
+  pc.addTransceiver('audio', { direction: 'recvonly' });
+
+  pc.ontrack = (e) => {
+    const a = new Audio();
+    a.srcObject = e.streams[0];
+    a.play().catch(()=>{});
+  };
+
+  const myUid = window.rhymexUser? window.rhymexUser.uid : anonId;
+  const sigRef = ref(db, `battles/${battleId}/webrtc_spec/${mcUid}/${myUid}`);
+
+  pc.onicecandidate = async (ev) => {
+    if(ev.candidate) await push(ref(db, `battles/${battleId}/webrtc_spec/${mcUid}/${myUid}/candidates`), ev.candidate.toJSON());
+  };
+
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+  await set(sigRef, { type: 'spec-offer', sdp: offer.sdp, from: myUid });
+
+  onValue(sigRef, async (s) => {
+    const d = s.val();
+    if(d && d.type === 'spec-answer' &&!pc.currentRemoteDescription) {
+      await pc.setRemoteDescription(new RTCSessionDescription({type:'answer', sdp: d.sdp}));
+    }
+  });
 }
+
+window.closeSpectator = async function() {
+  if(currentSpectatingId) {
+    const myUid = window.rhymexUser? window.rhymexUser.uid : anonId;
+    await remove(ref(db, `battles/${currentSpectatingId}/spectators/${myUid}`));
+    await runTransaction(ref(db, `battles/${currentSpectatingId}/spectatorsCount`), c => Math.max(0,(c||1)-1));
+  }
+  spectatorPCs.forEach(pc=>pc.close());
+  spectatorPCs = [];
+  document.getElementById('spectator-overlay').classList.remove('active');
+  currentSpectatingId = null;
+};
+
+
+  
+
+
+  
 
 window.fecharBuscaPlateia = function(){
   document.getElementById('plateia-busca-tela').style.display = 'none';
@@ -4143,6 +4297,8 @@ async function(
     await startAnswererSignaling();
 
   }
+    // Ativa escuta da plateia
+  listenForSpectators();
 
 };
 
@@ -4392,6 +4548,40 @@ async function startAnswererSignaling() {
 }
 
 
+
+
+
+// MC escuta pedidos da plateia
+function listenForSpectators() {
+  if(!currentBattleId ||!window.rhymexUser) return;
+  const myUid = window.rhymexUser.uid;
+  const specReqRef = ref(db, `battles/${currentBattleId}/webrtc_spec/${myUid}`);
+  onChildAdded(specReqRef, async (snap) => {
+    const req = snap.val();
+    if(!req || req.type!== 'spec-offer') return;
+    const spectatorUid = req.from;
+    const pc = new RTCPeerConnection(rtcConfig);
+    if(voiceLocalStream) voiceLocalStream.getTracks().forEach(t=>pc.addTrack(t, voiceLocalStream));
+    pc.onicecandidate = async (ev) => {
+      if(ev.candidate) await push(ref(db, `battles/${currentBattleId}/webrtc_spec/${myUid}/${spectatorUid}/ansCandidates`), ev.candidate.toJSON());
+    };
+
+        // Recebe ICE do espectador
+    onChildAdded(ref(db, `battles/${currentBattleId}/webrtc_spec/${myUid}/${spectatorUid}/candidates`), async (cSnap)=>{
+      try{ await pc.addIceCandidate(new RTCIceCandidate(cSnap.val())); }catch(e){}
+    });
+    await pc.setRemoteDescription(new RTCSessionDescription({type:'offer', sdp: req.sdp}));
+    const ans = await pc.createAnswer();
+    await pc.setLocalDescription(ans);
+    await update(ref(db, `battles/${currentBattleId}/webrtc_spec/${myUid}/${spectatorUid}`), { type: 'spec-answer', sdp: ans.sdp });
+  });
+}
+
+
+
+
+  
+
 // ==========================================
 // MUTAR MICROFONE
 // ==========================================
@@ -4535,6 +4725,10 @@ async function() {
     matchmakingListener = null;
   }
 
+    // Apaga a sala pra não virar lixo na plateia
+  if (currentBattleId) {
+    try { await remove(ref(db, `battles/${currentBattleId}`)); } catch(e){}
+  }
 
   currentBattleId = null;
   currentOpponent = null;
@@ -4652,50 +4846,32 @@ window.logoutRhymex = async function() {
 function initPlateiaReal(){
   const container = document.getElementById('plateia-container');
   if(!container) return;
-
-  // Se não tiver Firebase ainda, já mostra que não tem batalha
-  if(typeof firebase === 'undefined' || !firebase.database){
-    console.log("Firebase ainda não carregou, mostrando vazio");
-    setTimeout(showNenhumaBatalha, 1500);
-    return;
-  }
-
-  const battlesRef = firebase.database().ref('battles');
-
-  // Se demorar mais de 4 segundos, mostra "nenhuma" pra não ficar rodando infinito
-  const timeout = setTimeout(()=>{
-    if(container.innerHTML.includes("Procurando")){
-      showNenhumaBatalha();
-    }
-  }, 4000);
-
-  battlesRef.on('value', (snapshot)=>{
-    clearTimeout(timeout); // achou, cancela o timer
-    const battles = snapshot.val();
+  const battlesRef = ref(db, 'battles');
+  onValue(battlesRef, (snapshot)=>{
     container.innerHTML = "";
-    if(!battles){ showNenhumaBatalha(); return; }
-
-    const liveBattles = Object.entries(battles).filter(([id, data])=>{
-      return data.status === 'live' || data.status === 'in_progress' || data.status === 'started';
-    });
-
-    if(liveBattles.length === 0){ showNenhumaBatalha(); return; }
-
-    liveBattles.forEach(([battleId, battle])=>{
-      const mc1 = battle.player1Name || "MC 1";
-      const mc2 = battle.player2Name || "MC 2";
+    if(!snapshot.exists()){ showNenhumaBatalha(); return; }
+    let achou = false;
+        snapshot.forEach(child=>{
+      const id = child.key; const b = child.val();
+      if(b.status!=='waiting' && b.status!=='live') return;
+      // Ignora batalha velha com mais de 15 minutos (lixo)
+      if(b.createdAt && (Date.now() - b.createdAt > 15*60*1000)) return;
+      achou = true;
+      const vagas = 8 - (b.spectatorsCount||0);
       const div = document.createElement('div');
       div.style.cssText = "background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:16px; margin-bottom:12px;";
       div.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <div><div style="font-weight:700;">${mc1}</div><div style="color:#a855f7; font-size:0.8rem;">🎤 Cantando...</div></div>
+          <div><div style="font-weight:700;">${b.player1.name}</div></div>
           <div style="color:#6b7280; font-weight:800;">VS</div>
-          <div style="text-align:right;"><div style="font-weight:700;">${mc2}</div><div style="color:#6b7280; font-size:0.8rem;">Aguardando</div></div>
+          <div style="text-align:right;"><div style="font-weight:700;">${b.player2.name}</div></div>
         </div>
-        <button onclick="assistirBatalha('${battleId}')" style="width:100%; background:#2a2a35; border:1px solid var(--border-color); color:white; padding:12px; border-radius:12px; font-weight:600;">Assistir como Plateia</button>
+        <div style="font-size:0.75rem; color:${vagas>0?'#10B981':'#EF4444'}; margin-bottom:8px;">${vagas>0? vagas+' vagas na plateia' : 'LOTADA'}</div>
+        <button onclick="window.joinAsSpectator('${id}')" style="width:100%; background:#2a2a35; border:1px solid var(--border-color); color:white; padding:12px; border-radius:12px; font-weight:600;">Assistir como Plateia</button>
       `;
       container.appendChild(div);
     });
+    if(!achou) showNenhumaBatalha();
     if(window.lucide) lucide.createIcons();
   });
 }
