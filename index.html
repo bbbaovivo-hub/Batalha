@@ -4061,15 +4061,15 @@ window.watchRandomBattle = async function() {
       if(!snap.exists()){
         throw { code: 'no-battle' };
       }
-      const comVaga = [];
+            const comVaga = [];
       let temBatalhaValida = false;
       snap.forEach(child=>{
         const d = child.val();
         if(!d) return;
-        if(d.createdAt && (Date.now() - d.createdAt > 15*60*1000)) return;
+        if(d.createdAt && (Date.now() - d.createdAt > 10*60*1000)) return;
         if(d.status==='waiting' || d.status==='live'){
           temBatalhaValida = true;
-          if((d.spectatorsCount||0) < 8) comVaga.push(child.key);
+          comVaga.push(child.key);
         }
       });
 
@@ -4120,23 +4120,32 @@ let spectatorPCs = [];
 
 window.joinAsSpectator = async function(battleId) {
   currentSpectatingId = battleId;
-  const countRef = ref(db, 'battles/' + battleId + '/spectatorsCount');
+  const isGuest = !window.rhymexUser;
+  const myUid = isGuest ? anonId : window.rhymexUser.uid;
 
-  const transResult = await runTransaction(countRef, (atual) => {
-    if (atual === null) atual = 0;
-    if (atual >= 8) return; // aborta
-    return atual + 1;
-  });
-
-  if (!transResult.committed) {
-    alert("Esta batalha está cheia no momento. Tente assistir a outra batalha.");
-    return;
+  // Guest não faz transaction de vaga, só entra direto pra ver
+  if (!isGuest) {
+    const countRef = ref(db, 'battles/' + battleId + '/spectatorsCount');
+    try {
+      const transResult = await runTransaction(countRef, (atual) => {
+        if (atual === null) atual = 0;
+        if (atual >= 8) return;
+        return atual + 1;
+      });
+      if (!transResult.committed) {
+        alert("Esta batalha está cheia no momento. Tente assistir a outra batalha.");
+        return;
+      }
+    } catch(e){ console.log("Spectator count falhou, entrando mesmo assim", e); }
   }
 
-  const myUid = window.rhymexUser? window.rhymexUser.uid : anonId;
-  const mySpecRef = ref(db, `battles/${battleId}/spectators/${myUid}`);
-  await set(mySpecRef, { joinedAt: Date.now() });
-    onDisconnect(mySpecRef).remove();
+  if (!isGuest) {
+    try {
+      const mySpecRef = ref(db, `battles/${battleId}/spectators/${myUid}`);
+      await set(mySpecRef, { joinedAt: Date.now() });
+      onDisconnect(mySpecRef).remove();
+    } catch(e){ console.log("Spectator set falhou", e); }
+  }
   // O decremento automático via onDisconnect não funciona bem com transaction, 
   // o closeSpectator já cuida disso. Aqui só garantimos que o nó do espectador suma.
 
