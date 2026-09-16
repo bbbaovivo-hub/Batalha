@@ -2162,7 +2162,7 @@
 
     const conceptsData = {
   "politica": [
-    { word: "DEMAGOGIA", def: "Quando o político promete o que o povo quer ouvir, mesmo sabendo que não vai cumprir.", example: "Ex: Prometer picanha todo dia sabendo que não tem dinheiro pra isso." },
+    { word: "DEMAGOGIA", def: "Quando o político promete o que o povo quer ouvir, mesmo sabendo que não vai cumprir.", example: "Ex: Prometer tal coisa todo dia sabendo que não tem dinheiro pra isso." },
     { word: "POPULISMO", def: "Estratégia de se aproximar do povo pra ganhar voto, fingindo ser igual a ele.", example: "Ex: Ir pra favela e falar gíria só na época de eleição." },
     { word: "MERITOCRACIA", def: "Ideia de que quem se esforça mais, vence. Esconde que nem todo mundo começa do mesmo lugar.", example: "Ex: Falar que pobre é pobre porque não trabalha." },
     { word: "CLIENTELISMO", def: "Troca de favores por voto. Te dou um saco de cimento, você me dá seu voto.", example: "" }
@@ -3437,6 +3437,7 @@ let currentBattleId = null;
 let currentOpponent = null;
 
 let voiceCandidateListeners = [];
+let creatingBattle = false;
 
 const rtcConfig = {
   iceServers: [
@@ -3919,13 +3920,16 @@ async function() {
           players[0];
 
 
-        // Somente o UID menor cria a batalha.
+                // Somente o UID menor cria a batalha.
         // Isso evita os dois criarem salas diferentes.
         if (
+          !creatingBattle &&
           user.uid.localeCompare(
             opponent.uid
           ) < 0
         ) {
+
+          creatingBattle = true;
 
           // Confirma que o adversário
           // ainda está esperando
@@ -3952,10 +3956,13 @@ async function() {
           }
 
 
-          await createRealBattle(
+                    await createRealBattle(
             myQueueKey,
             opponent
           );
+
+          // reseta a trava depois de 5s pra próxima busca
+          setTimeout(()=>{ creatingBattle = false; }, 5000);
 
         }
 
@@ -4022,10 +4029,11 @@ async function() {
 
     }
 
-    matchmakingRef = null;
+        matchmakingRef = null;
 
   }
 
+  creatingBattle = false;
 
   console.log(
     "RHYMEX: saiu da fila."
