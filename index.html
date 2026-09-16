@@ -1167,7 +1167,7 @@
       <i data-lucide="mic" style="width:28px; height:28px; color:white;"></i>
     </div>
     <h1 style="color:white; font-size:1.5rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px;">RHYMEX</h1>
-    <p style="color:#6b7280; font-size:0.8rem; margin-bottom:28px;">Freestyle & Battle Ecosystem</p>
+    <p style="color:#6b7280; font-size:0.8rem; margin-bottom:28px;">A sua academia do improviso</p>
 
     <div style="width:180px; height:3px; background:#1f1f2a; border-radius:10px; overflow:hidden; margin-bottom:12px;">
       <div id="splash-progress" style="width:0%; height:100%; background:#A855F7; transition:width 0.4s ease;"></div>
@@ -1305,15 +1305,16 @@
         </div>
 
         <!-- Modes Detail list -->
-        <h3 style="font-size: 1rem; margin: 20px 0 12px 0;">Modos de Treino Recomendados</h3>
+        <h3 style="font-size: 1rem; margin: 20px 0 12px 0;">Outros tipos de treino</h3>
         
-        <div class="card card-interactive" onclick="startFreestyleSession('Palavra + Verso')">
-          <div class="section-header" style="margin-bottom:4px;">
-            <span style="font-weight: 700; font-size: 0.9rem;">Palavra + Verso</span>
-            <span class="tag">Média Dificuldade</span>
-          </div>
-          <p style="font-size: 0.78rem; color: var(--text-secondary);">Receba uma palavra e monte obrigatoriamente um punchline com ela.</p>
-        </div>
+
+
+
+
+
+
+
+        
 
                 <div class="card card-interactive" onclick="openEscolaRima()" style="border-color: rgba(251, 191, 36, 0.25); background: linear-gradient(135deg, rgba(24, 26, 38, 0.9), rgba(251, 191, 36, 0.08));">
           <div class="section-header" style="margin-bottom:4px;">
@@ -1446,45 +1447,11 @@
 
         <!-- Filter tabs -->
         <div class="mode-pills">
-          <div class="mode-pill active">Global</div>
-          <div class="mode-pill">Nacional (Brasil)</div>
-          <div class="mode-pill">Semanal</div>
+          <div class="mode-pill active">Top 10 - Por Vitórias</div>
         </div>
 
-        <div class="rank-item">
-          <div class="rank-pos top-1">#1</div>
-          <div style="flex:1; margin-left: 10px;">
-            <div style="font-weight: 700; font-size: 0.9rem;">MC Kant</div>
-            <div style="font-size: 0.7rem; color: var(--text-secondary);">Nível 42 • 12,450 XP</div>
-          </div>
-          <span class="tag" style="background: rgba(251, 191, 36, 0.15); color: #FBBF24;">MESTRE</span>
-        </div>
-
-        <div class="rank-item">
-          <div class="rank-pos top-2">#2</div>
-          <div style="flex:1; margin-left: 10px;">
-            <div style="font-weight: 700; font-size: 0.9rem;">MC Guto</div>
-            <div style="font-size: 0.7rem; color: var(--text-secondary);">Nível 38 • 10,120 XP</div>
-          </div>
-          <span class="tag">DIAMANTE</span>
-        </div>
-
-        <div class="rank-item">
-          <div class="rank-pos top-3">#3</div>
-          <div style="flex:1; margin-left: 10px;">
-            <div style="font-weight: 700; font-size: 0.9rem;">MC Magrão</div>
-            <div style="font-size: 0.7rem; color: var(--text-secondary);">Nível 35 • 9,800 XP</div>
-          </div>
-          <span class="tag">DIAMANTE</span>
-        </div>
-
-        <div class="rank-item" style="border-color: var(--accent-purple);">
-          <div class="rank-pos" style="color: var(--accent-purple-bright);">#14</div>
-          <div style="flex:1; margin-left: 10px;">
-            <div style="font-weight: 700; font-size: 0.9rem;">MC Krono (Você)</div>
-            <div style="font-size: 0.7rem; color: var(--accent-purple-bright);">Nível 12 • 4,820 XP</div>
-          </div>
-          <span class="tag" style="background: var(--accent-purple-glow); color: var(--accent-purple-bright);">OURO</span>
+        <div id="ranking-list">
+          <!-- Ranking carregado via Firebase -->
         </div>
       </section>
 
@@ -1720,10 +1687,10 @@
         <p style="font-size: 0.85rem; color: var(--text-secondary);" id="word-hint">Desenvolva seu verso antes do tempo acabar!</p>
       </div>
 
-      <div style="text-align: center; margin-bottom: 30px;">
+            <div id="freestyle-bottom-timer" style="text-align: center; margin-bottom: 30px;">
                 <div class="arena-timer" id="session-timer">05</div>
         <p id="timer-label" style="font-size: 0.75rem; color: var(--text-muted);">próxima palavra em segundos</p>
-      </div>
+            </div>
 
       <button id="btn-next-word" class="btn btn-primary" onclick="nextWord()">
         Próxima Palavra Agora <i data-lucide="skip-forward" style="width: 18px;"></i>
@@ -1747,8 +1714,11 @@
         <p id="concept-example" style="font-size:0.75rem; color:#9ca3af; font-style:italic;">Exemplo aqui</p>
       </div>
 
-      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
-        <div id="rep-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+        <div id="rep-beat-name" style="flex:1; font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+        <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextRepBeat()">
+          <i data-lucide="skip-forward" style="width:18px;"></i>
+        </button>
       </div>
       <audio id="rep-beat-audio" loop playsinline></audio>
 
@@ -1782,9 +1752,12 @@
     <div id="fms-question" style="font-size:1.3rem; font-weight:800; color:white; margin-top:8px; line-height:1.3;">Prepare-se para responder as perguntas em...</div>
   </div>
 
-  <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
-    <div id="fms-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
-  </div>
+    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+    <div id="fms-beat-name" style="flex:1; font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+    <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextFMSBeat()">
+      <i data-lucide="skip-forward" style="width:18px;"></i>
+    </button>
+    </div>
   <audio id="fms-beat-audio" loop playsinline></audio>
 
   <div class="arena-word-display" style="text-align:center; margin-top:30px;">
@@ -1856,9 +1829,12 @@
         <div id="scene-hint" style="font-size:0.85rem; color:#9ca3af; margin-top:4px;">Olhe bem. Você vai ter que contar essa história rimando.</div>
       </div>
 
-      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
-        <div id="scene-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
-      </div>
+                        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+        <div id="scene-beat-name" style="flex:1; font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+        <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextSceneBeat()">
+          <i data-lucide="skip-forward" style="width:18px;"></i>
+        </button>
+            </div>
       <audio id="scene-beat-audio" loop playsinline></audio>
 
       <div class="arena-word-display" style="text-align:center; margin-top:20px;">
@@ -1886,9 +1862,12 @@
     <div id="contra-attack-text" style="font-size:1.6rem; font-weight:800; color:#EF4444; margin-top:8px; line-height:1.2; text-transform:uppercase;">CÊ É DECORADA!</div>
   </div>
 
-  <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
-    <div id="contra-beat-name" style="font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
-  </div>
+    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:12px; display:flex; align-items:center; gap:12px; margin-top:12px;">
+    <div id="contra-beat-name" style="flex:1; font-size:0.85rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Beat</div>
+    <button class="btn btn-secondary" style="width:auto; padding:8px 12px;" onclick="nextContraBeat()">
+      <i data-lucide="skip-forward" style="width:18px;"></i>
+    </button>
+    </div>
   <audio id="contra-beat-audio" loop playsinline></audio>
 
   <div class="arena-word-display" style="text-align:center; margin-top:30px;">
@@ -1903,7 +1882,7 @@
     <div id="matchmaking-overlay" class="matchmaking-overlay">
       <div class="radar-spinner"></div>
       <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Procurando Adversário...</h3>
-      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px;">Buscando um MC do mesmo nível (Ouro / LVL 12)</p>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px;">Aguarde, estamos procurando algum adversário...</p>
 <button class="btn btn-danger" style="width: 200px;" onclick="cancelBattleMatchmaking()">
   Cancelar
 </button>
@@ -2172,9 +2151,10 @@
   <script>
     // --- APP DATABASE & STATE ---
         const vocabularyList = [
-      "Visão", "Resiliência", "Subversão", "Consciência", "Periferia", 
-      "Labyrinth", "Horizonte", "Sintonia", "Transformação", "Metáfora", 
-      "Soberania", "Legado", "Frequência", "Impacto", "Dinastia"
+      "Visão", "Resiliência", "Subversão", "Consciência", "Periferia", "Bom",
+      "Microfone", "Horizonte", "Sintonia", "Transformação", "Metáfora", "Persistência",
+      "Soberania", "Legado", "Frequência", "Impacto",
+      "Fato", "História", "Fraco",  "Dinastia"
     ];
 
 
@@ -2195,7 +2175,7 @@
     
 
     const beatsList = [
-        { name: "NOME DO BEAT1 ", style: "BPM 90 • Flow raiz", url: "LINK DO BEAT" },
+        { name: "Detroit Type beat Padrinhos Mágicos", style: "bigel", url: "https://videotourl.com/audio/1789509761922-90b5cadf-55d6-4f7d-9756-8a9534c8e56e.mp3" },
       
         { name: "Vida Bandida", style: "Greezy", url: "https://videotourl.com/audio/1789435585968-f05954f9-3131-417c-b6ac-e0eabbb39fa4.mp3" },
       
@@ -2214,7 +2194,7 @@
       
       { name: "Racionais Mc's - Da ponte pra ca instrumental", style: "Diego Conteúdos", url: "https://videotourl.com/audio/1789432354684-7ff1d0f0-2ea1-4325-9561-acb531ff9742.mp3" },
       
-      { name: "NOME DO BEAT1 ", style: "BPM 90 • Flow raiz", url: "LINK DO BEAT" },
+      { name: "PutodiParis x ogtreasure7 x Big Rush Type Beat Racionais Detroit", style: "Tege Beatz", url: "https://videotourl.com/audio/1789509506915-d0cb0455-0eba-4dbe-ae04-2335006170c6.mp3" },
       
       { name: "Racionais mcs vida loka parte 2 instrumental", style: "Leandro Ferreira", url: "https://videotourl.com/audio/1789432256510-b0e74fbd-48aa-4304-a04d-48af6327b12b.mp3" },
       
@@ -2335,6 +2315,11 @@ function switchTab(tabName) {
     }
   }
 
+
+    if(tabName === 'ranking'){
+    setTimeout(()=>{ window.loadRanking(); }, 300);
+    }
+
   const activeNavIndex = { 'home':0, 'practice':1, 'repertoire':1, 'vocab':1, 'battle':2, 'ranking':3, 'profile':4 }[tabName];
   const navButtons = document.querySelectorAll('.nav-item');
   if (navButtons[activeNavIndex]) navButtons[activeNavIndex].classList.add('active');
@@ -2415,12 +2400,21 @@ function closeRhymexModal() {
   document.getElementById('label-sua-palavra').style.display = "none";
   document.getElementById('btn-next-word').style.display = "none";
 
+    // garante que o timer de baixo aparece no início
+  document.getElementById('freestyle-bottom-timer').style.display = "block";
+
   clearInterval(prepareInterval);
   prepareInterval = setInterval(() => {
     if(isPaused) return;
     prepareTimeLeft--;
     timerEl.innerText = prepareTimeLeft;
     wordEl.innerText = prepareTimeLeft > 3 ? "PREPARE-SE" : prepareTimeLeft;
+
+    // QUANDO CHEGAR NO 3: some o de baixo, deixa só o vermelho contar
+    if(prepareTimeLeft <= 3) {
+      document.getElementById('freestyle-bottom-timer').style.display = "none";
+    }
+
     if(prepareTimeLeft <= 0) {
       clearInterval(prepareInterval);
       startRealTraining();
@@ -2431,6 +2425,7 @@ function closeRhymexModal() {
 function startRealTraining(){
   document.getElementById('label-sua-palavra').style.display = "block";
   document.getElementById('btn-next-word').style.display = "flex";
+  document.getElementById('freestyle-bottom-timer').style.display = "block";
   document.getElementById('timer-label').innerText = "próxima palavra em segundos";
 
   nextWord();
@@ -2489,6 +2484,36 @@ function pegarProximoBeat() {
     function nextBeat() {
   currentBeatIndex = pegarProximoBeat();
   playBeat(currentBeatIndex);
+    }
+
+
+        function nextRepBeat(){
+      const beat = beatsList[pegarProximoBeat()];
+      document.getElementById('rep-beat-name').innerText = beat.name;
+      const audio = document.getElementById('rep-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+      lucide.createIcons();
+    }
+    function nextFMSBeat(){
+      const beat = beatsList[pegarProximoBeat()];
+      document.getElementById('fms-beat-name').innerText = beat.name;
+      const audio = document.getElementById('fms-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+      lucide.createIcons();
+    }
+    function nextSceneBeat(){
+      const beat = beatsList[pegarProximoBeat()];
+      document.getElementById('scene-beat-name').innerText = beat.name;
+      const audio = document.getElementById('scene-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+      lucide.createIcons();
+    }
+    function nextContraBeat(){
+      const beat = beatsList[pegarProximoBeat()];
+      document.getElementById('contra-beat-name').innerText = beat.name;
+      const audio = document.getElementById('contra-beat-audio');
+      audio.src = beat.url; audio.volume = 0.7; audio.play().catch(()=>{});
+      lucide.createIcons();
     }
 
         function closeFreestyleSession() {
@@ -2720,12 +2745,11 @@ function pegarProximoBeat() {
 
 
             const escolaData = [
-      { id: "rima", titulo: "O que é Rima?", tag: "BASE", def: "Rima é quando o final de duas palavras tem som parecido. Rima rica é quando usa 2 palavras. Ex: 'Sua mente trava / Meu verso te crava'", exemplo: "\"Eu rimo com alma, cê rima com pose, sua rima é fraca, a minha é overdose\"", video: "", audio: "" },
-      { id: "metrica", titulo: "Métrica e Flow", tag: "FLOW", def: "Métrica é não atropelar o beat. Você tem que encaixar suas palavras no tempo da batida. Se correr, perde o flow.", exemplo: "\"Não é só falar rápido, é falar no tempo certo, no grave do bumbo\"", video: "", audio: "" },
+      { id: "rima", titulo: "O que é Rima?", tag: "BASE", def: "Rima é a repetição de sons iguais ou semelhantes no final das palavras, principalmente na última sílaba de versos de um poema ou música", exemplo: "\"PÃO rima com MÃO, CORAÇÃO rima com CANÇÃO.\"", video: "", audio: "" },
+      { id: "metrica", titulo: "Métrica", tag: "CONSTRUÇÃO", def: "Métrica na batalha de rima é a organização do ritmo e da quantidade de sílabas ou tempos para encaixar as palavras perfeitamente no compasso da batida.", exemplo: "\"O meu FOCO tá no JOGO, eu trago o FOGO pro TOPO\"", video: "", audio: "" },
       { id: "punchline", titulo: "Punchline", tag: "ATAQUE", def: "É a frase final que dá a porrada. É o que faz a plateia gritar. Todo verso tem que terminar com punch.", exemplo: "\"Cê fala de rua mas nunca dormiu na rua, fala de luta mas nunca perdeu na luta\"", video: "", audio: "" },
-      { id: "carteirada", titulo: "Carteirada", tag: "IDEOLOGIA", def: "Quando você ganha sem atacar o adversário, só mostrando conhecimento e ideologia. É o que separa MC de MC completo.", exemplo: "\"Enquanto cê fala de mim, eu falo do sistema que te oprime e você nem vê\"", video: "", audio: "" },
-      { id: "dobrar", titulo: "Dobrar o Flow", tag: "TÉCNICA", def: "Dobrar é acelerar no meio do verso pra mostrar técnica. Usa no final do round pra impressionar.", exemplo: "\"Tic tac tic tac no beat eu acelero, sua mente trava eu libero\"", video: "", audio: "audios/dobra-exemplo.mp3" },
-      { id: "resposta", titulo: "Resposta", tag: "FMS", def: "Na FMS você precisa responder o que o cara falou. Se ele te pergunta, você não pode ignorar. Tem que rebater na hora.", exemplo: "\"Cê perguntou da minha quebrada? Minha quebrada é o Brasil que você nunca pisou\"", video: "", audio: "" }
+      { id: "carteirada", titulo: "Carteirada", tag: "AUTOEXALTAÇÃO", def: "É quando o MC usa o peso do seu nome, de seus títulos ou de suas grandes conquistas passadas para intimidar o oponente ou impressionar o público.", exemplo: "\"Você fala muito, mas eu sou o maior campeão nacional!\"", video: "", audio: "" },
+      { id: "dobrar", titulo: "Dobrar o Flow", tag: "TÉCNICA", def: "A dobra (ou dobrar a rima) é uma técnica de fluxo (flow) em que o MC duplica a velocidade ou o encaixe das palavras em relação ao tempo da batida (beat), mantendo um padrão complexo de rimas curtas e contínuas no mesmo compasso.", exemplo: "\"Tic tac tic tac no beat eu acelero, a sua mente trava, e eu libero\"", video: "", audio: "audios/dobra-exemplo.mp3" }
     ];
     
 
@@ -2888,7 +2912,7 @@ function pegarProximoBeat() {
       "SEM CRIATIVIDADE NENHUMA!",
       "VAI CHORAR?",
       "CÊ NÃO AGUENTA A PRESSÃO!",
-      "TUA RIMA NÃO COLA!"
+      "ARGUMENTO FRACO!"
     ];
     let contraTimerInterval = null;
     let contraPrepareInterval = null;
@@ -3098,6 +3122,14 @@ function nextWord() {
 
 function startBattleMatchmaking() {
 
+  // Se não tá logado, nem mostra a tela de procurando
+  if (!window.rhymexUser) {
+    if (window.startRealMatchmaking) {
+      window.startRealMatchmaking(); // ele vai mostrar o modal de login sozinho
+    }
+    return;
+  }
+
   const overlay =
     document.getElementById('matchmaking-overlay');
 
@@ -3288,17 +3320,28 @@ setPersistence(auth, browserLocalPersistence)
 
             // ===== 3. PRESENÇA + CONTAGEM DE CONTAS - CORRIGIDO =====
       // Grava usuário SEMPRE, separado da presença
-      try {
-        await set(ref(db, `users/${user.uid}`), {
-          uid: user.uid,
-          name: user.displayName || 'MC',
-          email: user.email.toLowerCase(),
-          createdAt: Date.now()
-        });
+            try {
+        const userRef = ref(db, `users/${user.uid}`);
+        const userSnap = await get(userRef);
+        if(!userSnap.exists()){
+          await set(userRef, {
+            uid: user.uid,
+            name: user.displayName || 'MC',
+            email: user.email.toLowerCase(),
+            wins: 0,
+            lastWinAt: 0,
+            createdAt: Date.now()
+          });
+        } else {
+          await update(userRef, {
+            name: user.displayName || 'MC',
+            email: user.email.toLowerCase()
+          });
+        }
         console.log("✅ USER GRAVADO PRA CONTAGEM");
       } catch(err) {
         console.error("❌ ERRO AO GRAVAR USER:", err);
-      }
+  }
 
       try {
         try { await remove(anonPresenceRef); } catch(e){}
@@ -3385,6 +3428,7 @@ onValue(presenceRef, (snapshot) => {
 let matchmakingRef = null;
 let matchmakingListener = null;
 let ownQueueListener = null;
+let matchmakingTimeout = null;
 
 let voicePeerConnection = null;
 let voiceLocalStream = null;
@@ -3591,6 +3635,10 @@ async function createRealBattle(
   });
 
 
+      // Se os 2 MCs fecharem a aba, a sala se apaga sozinha em ~60s
+  onDisconnect(battleRef).remove();
+
+
   // Marca os dois jogadores com o mesmo battleId
   await update(
     ref(db, `matchmaking/${myQueueKey}`),
@@ -3693,6 +3741,25 @@ async function() {
   );
 
 
+
+          // Se em 30s não achar ninguém, avisa bonito e sai da fila
+  if(matchmakingTimeout) clearTimeout(matchmakingTimeout);
+  matchmakingTimeout = setTimeout(async ()=>{
+    // Só avisa se ainda tá na fila e não entrou em batalha
+    if(matchmakingRef && !currentBattleId){
+      document.getElementById('matchmaking-overlay').classList.remove('active');
+      await window.cancelRealMatchmaking();
+      showRhymexModal({
+        icon: 'ghost',
+        title: 'Nenhum MC por aqui...',
+        text: 'Não encontramos adversário disponível agora. Tenta de novo em alguns instantes ou chama um amigo pra batalhar.',
+        actionText: null,
+        actionLink: null
+      });
+    }
+  }, 30000);
+
+
   // ========================================
   // OBSERVAR NOSSA PRÓPRIA ENTRADA
   // ========================================
@@ -3780,6 +3847,12 @@ async function() {
           }
 
 
+                    if(matchmakingTimeout){
+            clearTimeout(matchmakingTimeout);
+            matchmakingTimeout = null;
+                    }
+
+
           window.openRealVoiceBattle(
             battleId,
             opponent
@@ -3803,7 +3876,7 @@ async function() {
         const players = [];
 
 
-        snapshot.forEach(
+                    snapshot.forEach(
           (child) => {
 
             const data =
@@ -3892,12 +3965,27 @@ async function() {
 };
 
 
+
+        // Garante que sai da fila se fechar a aba
+window.addEventListener('beforeunload', ()=>{
+  if(matchmakingRef){
+    try{ remove(matchmakingRef); }catch(e){}
+  }
+});
+
+
 // ==========================================
 // CANCELAR MATCHMAKING
 // ==========================================
 
 window.cancelRealMatchmaking =
 async function() {
+
+
+    if(matchmakingTimeout){
+    clearTimeout(matchmakingTimeout);
+    matchmakingTimeout = null;
+    }
 
   if (matchmakingListener) {
 
@@ -3959,11 +4047,46 @@ window.watchRandomBattle = async function() {
   setTimeout(()=>{ barra.style.width = '70%'; texto.innerText = 'Encontrando MCs...'; }, 800);
   setTimeout(()=>{ barra.style.width = '100%'; texto.innerText = 'Entrando na batalha...'; }, 1500);
 
-  // espera a animação terminar antes de buscar de verdade
   setTimeout(async ()=>{
-    const snap = await get(ref(db, 'battles'));
-    if(!snap.exists()){
+    try {
+      const snap = await get(ref(db, 'battles'));
+      if(!snap.exists()){
+        throw { code: 'no-battle' };
+      }
+      const comVaga = [];
+      let temBatalhaValida = false;
+      snap.forEach(child=>{
+        const d = child.val();
+        if(!d) return;
+        if(d.createdAt && (Date.now() - d.createdAt > 15*60*1000)) return;
+        if(d.status==='waiting' || d.status==='live'){
+          temBatalhaValida = true;
+          if((d.spectatorsCount||0) < 8) comVaga.push(child.key);
+        }
+      });
+
+      if(!temBatalhaValida){
+        throw { code: 'no-battle' };
+      }
+
+      if(comVaga.length===0){
+        window.fecharBuscaPlateia();
+        showRhymexModal({
+          icon: 'users',
+          title: 'Todas as batalhas estão cheias',
+          text: 'Todas as batalhas estão cheias no momento, tenta de novo em instantes.',
+          actionText: null,
+          actionLink: null
+        });
+        return;
+      }
+
+      const sorteada = comVaga[Math.floor(Math.random()*comVaga.length)];
+      await window.joinAsSpectator(sorteada);
+
+    } catch(e) {
       window.fecharBuscaPlateia();
+      // Se for falta de permissão (visitante) ou sem batalha, mostra a mesma tela bonita
       showRhymexModal({
         icon: 'eye-off',
         title: 'Nenhuma batalha ao vivo',
@@ -3974,27 +4097,8 @@ window.watchRandomBattle = async function() {
       const btn = document.getElementById('rhymex-modal-action');
       btn.style.display = 'flex';
       btn.onclick = () => { closeRhymexModal(); switchTab('battle'); };
-      return;
+      console.log('watchRandomBattle erro:', e);
     }
-    const comVaga = [];
-    snap.forEach(child=>{
-      const d = child.val();
-      if(b.d && b.d.createdAt && (Date.now()-b.d.createdAt > 15*60*1000)) return;
-      if((d.status==='waiting'||d.status==='live') && (d.spectatorsCount||0) < 8) comVaga.push(child.key);
-    });
-    if(comVaga.length===0){
-      window.fecharBuscaPlateia();
-      showRhymexModal({
-        icon: 'users',
-        title: 'Todas as batalhas estão cheias',
-        text: 'Todas as batalhas estão cheias no momento, tenta de novo em instantes.',
-        actionText: null,
-        actionLink: null
-      });
-      return;
-    }
-    const sorteada = comVaga[Math.floor(Math.random()*comVaga.length)];
-    await window.joinAsSpectator(sorteada);
   }, 2200);
 };
 
@@ -4103,7 +4207,7 @@ window.supportRhymex = function() {
   showRhymexModal({
     icon: 'heart',
     title: 'Apoie o RHYMEX ❤️',
-    text: `Chave Pix (aleatória):\n${pixKey}\n\nClique em COPIAR CHAVE e faça um Pix de qualquer valor para ajudar a manter o servidor das batalhas online. Você ganha o selo de Apoiador!`,
+    text: `Chave Pix (aleatória):\n${pixKey}\n\nClique em COPIAR CHAVE e faça um Pix de qualquer valor para ajudar a manter o servidor das batalhas online!`,
     actionText: 'Copiar Chave Pix',
     actionLink: null
   });
@@ -4871,10 +4975,129 @@ function initPlateiaReal(){
       `;
       container.appendChild(div);
     });
-    if(!achou) showNenhumaBatalha();
+        if(!achou) showNenhumaBatalha();
     if(window.lucide) lucide.createIcons();
+  }, (error)=>{
+    console.log('Plateia erro permissão:', error);
+    showNenhumaBatalha();
   });
 }
+
+
+
+  async function limparBatalhasVelhas(){
+  try {
+    const snap = await get(ref(db, 'battles'));
+    if(!snap.exists()) return;
+    const agora = Date.now();
+    snap.forEach(child=>{
+      const b = child.val();
+      if(!b) return;
+      // Se tem mais de 10 minutos, apaga de verdade
+      if(b.createdAt && (agora - b.createdAt > 10*60*1000)){
+        remove(ref(db, 'battles/' + child.key)).catch(()=>{});
+        console.log('RHYMEX: limpou batalha velha', child.key);
+      }
+      // Se não tem createdAt (batalha bugada antiga), apaga também
+      if(!b.createdAt){
+        remove(ref(db, 'battles/' + child.key)).catch(()=>{});
+      }
+    });
+  } catch(e){ console.log('Erro limpeza:', e); }
+  }
+
+
+
+function getPatente(wins){
+  if(wins >= 20) return { nome: 'OURO', cor: '#FBBF24', bg: 'rgba(251, 191, 36, 0.15)' };
+  if(wins >= 10) return { nome: 'DIAMANTE', cor: '#9CA3AF', bg: 'rgba(255,255,255,0.05)' };
+  return { nome: 'MESTRE', cor: '#A855F7', bg: 'rgba(168, 85, 247, 0.15)' };
+}
+
+window.addBattleWin = async function(){
+  if(!window.rhymexUser) return;
+  const uid = window.rhymexUser.uid;
+  const userRef = ref(db, `users/${uid}`);
+  try {
+    const snap = await get(userRef);
+    let wins = 1;
+    if(snap.exists() && snap.val().wins) wins = snap.val().wins + 1;
+    await update(userRef, { wins: wins, lastWinAt: Date.now() });
+    let localWins = parseInt(localStorage.getItem('rhymex_battles_won') || '0') + 1;
+    localStorage.setItem('rhymex_battles_won', localWins);
+    loadRealStats();
+    console.log('Vitória registrada:', wins);
+  } catch(e){ console.log('Erro win:', e); }
+};
+
+window.loadRanking = async function(){
+  const container = document.getElementById('ranking-list');
+  if(!container) return;
+
+  // Bloqueia visitante pra não expor email
+  if(!window.rhymexUser){
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;">
+      <i data-lucide="lock" style="width:32px;height:32px;color:#6b7280;"></i>
+      <p style="color:white;font-weight:700;margin-top:12px;">Ranking exclusivo pra MCs</p>
+      <p style="color:#6b7280;font-size:0.85rem;margin-top:8px;">Faça login pra ver o TOP 10</p>
+      <button onclick="window.location.href='login.html'" style="margin-top:16px;background:var(--accent-purple);color:white;border:none;padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;">Fazer Login</button>
+    </div>`;
+    if(window.lucide) lucide.createIcons();
+    return;
+  }
+
+  container.innerHTML = `<p style="text-align:center;color:#6b7280;padding:20px;">Carregando ranking...</p>`;
+  try {
+    const snap = await get(ref(db, 'users'));
+    if(!snap.exists()){
+      container.innerHTML = `<div style="text-align:center;padding:40px 20px;"><p style="color:white;font-weight:700;">Nenhum MC no ranking ainda</p><p style="color:#6b7280;font-size:0.85rem;margin-top:8px;">Vence 3 batalhas pra entrar no TOP 10!</p></div>`;
+      return;
+    }
+    let lista = [];
+    snap.forEach(child=>{
+      const u = child.val();
+      if(u.wins && u.wins >= 3) lista.push(u);
+    });
+    // Ordena por vitórias, desempata por mais recente
+    lista.sort((a,b)=>{
+      if(b.wins!== a.wins) return b.wins - a.wins;
+      return (b.lastWinAt||0) - (a.lastWinAt||0);
+    });
+    lista = lista.slice(0, 10); // TOP 10
+
+    if(lista.length === 0){
+      container.innerHTML = `<div style="text-align:center;padding:40px 20px;"><p style="color:white;font-weight:700;">Nenhum MC no ranking ainda</p><p style="color:#6b7280;font-size:0.85rem;margin-top:8px;">Vence 3 batalhas pra entrar no TOP 10!</p></div>`;
+      return;
+    }
+
+    let html = '';
+    lista.forEach((u, i)=>{
+      const pos = i+1;
+      const pat = getPatente(u.wins);
+      const isVoce = window.rhymexUser && u.uid === window.rhymexUser.uid;
+      const nome = isVoce? (u.name + ' (Você)') : u.name;
+      const topClass = pos===1? 'top-1' : pos===2? 'top-2' : pos===3? 'top-3' : '';
+      html += `
+      <div class="rank-item" ${isVoce? 'style="border-color: var(--accent-purple);"' : ''}>
+        <div class="rank-pos ${topClass}">#${pos}</div>
+        <div style="flex:1; margin-left: 10px;">
+          <div style="font-weight: 700; font-size: 0.9rem;">${nome}</div>
+          <div style="font-size: 0.7rem; color: var(--text-secondary);">${u.wins} vitórias</div>
+        </div>
+        <span class="tag" style="background: ${pat.bg}; color: ${pat.cor};">${pat.nome}</span>
+      </div>`;
+    });
+    container.innerHTML = html;
+    } catch(e){
+    console.log('Erro ranking:', e);
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;"><p style="color:white;font-weight:700;">Nenhum MC no ranking ainda</p><p style="color:#6b7280;font-size:0.85rem;margin-top:8px;">Vence 3 batalhas pra entrar no TOP 10!</p></div>`;
+  }
+};
+
+
+  
+
+  
 
 function showNenhumaBatalha(){
   document.getElementById('plateia-container').innerHTML = `
@@ -4906,7 +5129,12 @@ function assistirBatalha(battleId){
 // INICIA ASSIM QUE CARREGA A ABA BATALHA
 document.addEventListener('DOMContentLoaded', ()=>{
   // espera 2s pro Firebase conectar
-  setTimeout(initPlateiaReal, 2000);
+  setTimeout(()=>{
+    limparBatalhasVelhas();
+    initPlateiaReal();
+    // repete a limpeza a cada 2 minutos
+    setInterval(limparBatalhasVelhas, 2*60*1000);
+  }, 2000);
 });
   
 
